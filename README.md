@@ -1,4 +1,2 @@
 # KeyCapProfiles
-
-
-Make Caps of your dream!
+ Parametric Key Caps
