@@ -6,74 +6,79 @@ use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
 use <skin.scad>  
 
-//DES (Distorted Elliptical Saddle) Profile for 6x3 and corne thumb
+/*DES (Distorted Elliptical Saddle) Sculpted Profile for 6x3 and corne thumb 
+Version 2: Eliptical Rectangle
 
+*/
+
+//Stab = 24 for 
 //TODO add shift 
-keycap(keyID = 19, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
-////fullsetee
+// keycap(keyID = 9, cutLen = 0, Stem =true,  Dish = false, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+// translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
+// translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
 RowHome = [0,2.5,5,2.5,0,0];
 
-//for(Col = [4:5]){ 
-//  for(Row = [1:3]){
-//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = false, crossSection = false);
+//for(Col = [0:0]){ 
+//  for(Row = [1:2]){
+//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = true, crossSection = true,Legends = false);
 //  }
 //}
 
-////// thumb
-//  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([10, 0, 0])rotate([0,0,15])keycap(keyID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([31, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+//// thumb
+  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+  translate([10, 0, 0])rotate([0,0,15])keycap(keyID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+  translate([31, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
 //Parameters
 wallthickness = 1.75;
-topthickness = 2.25;
+topthickness = 3; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
 step = 2;       //resolution of ellipes 
-fn = 64;          //resolution of Rounded Rectangles: 60 for output
+fn = 32;          //resolution of Rounded Rectangles: 60 for output
 layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
 slop    = 0.3;
 stemRot = 0;
-stemWid = 7.2;
-stemLen = 5.5;
-stemCrossHeight = 4;
+stemWid = 8;
+stemLen = 6;
+stemCrossHeight = 1.8;
 extra_vertical = 0.6;
 stemLayers = 50; //resolution of stem to cap top transition
-
+#square([18.16, 18.16], center = true);
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
-//  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapRIn, CapRFn, CapREx, StemEx
+//  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column 0
-    [18.16,  18.16*1.5, 6, 	   6,   12,    0,    0,   -13,   -10,    -5,   2,   2,     .2,      3,     1,       2], //R5 0
-    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,    10,   -10,    -5,   2,   2,     .2,      3,     1,       2], //R4
-    [18.16,  18.16,     7, 	   7,  7+4,    0,    0,    -2,   -10,    -5,   2,   2,     .2,      3,     1,       2], //R3 Home
-    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,   -10,   -10,    -5,   2,   2,     .2,      3,     1,       2], //R2
+    [18.16,  18.16*1.5, 6, 	   6,   12,    0,    0,   -13,   -10,    -5,   2,   2,     .2,      3,      2,      6,     2,       2], //R5 0
+    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,    10,   -10,    -5,   2,   2,     .2,      3,      2,      6,     2,       2], //R4
+    [18.16,  18.16,     7, 	   7,  7+4,    0,    0,    -2,   -10,    -5,   2,   2,     .2,      3,      2,      6,     2,       2], //R3 Home
+    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,   -10,   -10,    -5,   2,   2,     .2,      3,      2,      6,     2,       2], //R2
 //Column 1
-    [18.16,  18.16,     6, 	   6,   10,    0,    0,   -13,     5,     0,   2,   2,     .2,      3,     1,       2], //R5 4
-    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,     5,    -3,     0,   2,   2,     .2,      3,     1,       2], //R4
-    [18.16,  18.16,     7, 	   7,7+2.5,    0,    0,    -2,    -3,     0,   2,   2,     .2,      3,     1,       2], //R3 Home
-    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,   -12,    -3,     0,   2,   2,     .2,      3,     1,       2], //R2
+    [18.16,  18.16,     6, 	   6,   10,    0,    0,   -13,     5,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R5 4
+    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,     5,    -3,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R4
+    [18.16,  18.16,     7, 	   7,7+2.5,    0,    0,    -2,    -3,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R3 Home
+    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,   -12,    -3,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R2
 //Column 2 middle
-    [18.16,  18.16,     6, 	   6,   12,    0,    0,   -13,    10,    15,   2,   2,     .2,      3,     1,       2], //R5 8
-    [18.16,  18.16,     7, 	   7,    8,    0,    0,     9,     0,     0,   2,   2,     .2,      3,     1,       2], //R4
-    [18.16,  18.16,     7, 	   7,    7,    0,    0,    -2,     0,     0,   2,   2,     .2,      3,     1,       2], //R3 Home
-    [18.16,  18.16,     7, 	   7,    8,    0,    0,   -12,     0,     0,   2,   2,     .2,      3,     1,       2], //R2
+    [18.16,  18.16,     6, 	   6,   12,    0,    0,   -13,    10,    15,   2,   2,     .2,      3,      2,      6,     2,       2], //R5 8
+    [18.16,  18.16,     7, 	   7,    8,    0,    0,     5,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
+    [18.16,  18.16,     7, 	   7,    7,    0,    0,    -2,     0,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R3 Home
+    [18.16,  18.16,     7, 	   7,    8,    0,    0,   -12,     0,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R2
 //Column 3
-    [18.16,  18.16,     6, 	   6, 11+3,    0,    0,    13,    -4,     0,   2,   2,     .2,      3,     1,       2], //R5 12
-    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,     5,    -4,     0,   2,   2,     .2,      3,     1,       2], //R4
-    [18.16,  18.16,     7, 	   7,  7+3,    0,    0,    -2,    -4,     0,   2,   2,     .2,      3,     1,       2], //R3 Home
-    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,   -10,    -4,     0,   2,   2,     .2,      3,     1,       2], //R2
+    [18.16,  18.16,     6, 	   6, 11+3,    0,    0,    13,    -4,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R5 12
+    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,     5,    -4,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R4
+    [18.16,  18.16,     7, 	   7,  7+3,    0,    0,    -2,    -4,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R3 Home
+    [18.16,  18.16,     7, 	   7,  8+3,    0,    0,   -10,    -4,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R2
 //Column 4
-    [18.16,  18.16,     6, 	   6,11+5.5,   0,    0,    13,   -10,     0,   2,   2,     .2,      3,     1,       2], //R5 16
-    [18.16,  18.16,     7, 	   7,8+5.5,    0,    0,     5,   -10,     0,   2,   2,     .2,      3,     1,       2], //R4
-    [18.16,  18.16,     7, 	   7,7+5.5,    0,    0,    -5,   -10,     0,   2,   2,     .2,      3,     1,       2], //R3 Home
-    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,   -12,     5,     0,   2,   2,     .2,      3,     1,       2], //R2
+    [18.16,  18.16,     6, 	   6,11+5.5,   0,    0,    13,   -10,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R5 16
+    [18.16,  18.16,     7, 	   7,8+5.5,    0,    0,     5,   -10,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R4
+    [18.16,  18.16,     7, 	   7,7+5.5,    0,    0,    -5,   -10,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R3 Home
+    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,   -12,     5,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R2
 //Column 5
-    [18.16,  18.16,     6, 	   6, 11+4,    0,    0,    13,    -6,     0,   2,   2,     .2,      3,     1,       2], //R5 20
-    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,     5,    -6,     0,   2,   2,     .2,      3,     1,       2], //R4
-    [18.16,  18.16,     7, 	   7,  7+4,    0,    0,    -2,    -6,     0,   2,   2,     .2,      3,     1,       2], //R3 Home
-    [18.16,  18.16,     7, 	   7,  8+6,    0,    0,   -12,    10,     0,   2,   2,     .2,      3,     1,       2], //R2
+    [18.16,  18.16,     6, 	   6, 11+4,    0,    0,    13,    -6,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R5 20
+    [18.16,  18.16,     7, 	   7,  8+4,    0,    0,     5,    -6,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R4
+    [18.16,  18.16,     7, 	   7,  7+4,    0,    0,    -2,    -6,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R3 Home
+    [18.16,  18.16,     7, 	   7,  8+6,    0,    0,   -12,    10,     0,   2,   2,     .2,      3,      2,      6,     2,       2], //R2
 ];
 
 function BottomWidth(keyID)  = keyParameters[keyID][0];  //
@@ -88,10 +93,12 @@ function YAngleSkew(keyID)   = keyParameters[keyID][8];
 function ZAngleSkew(keyID)   = keyParameters[keyID][9];
 function WidExponent(keyID)  = keyParameters[keyID][10];
 function LenExponent(keyID)  = keyParameters[keyID][11];
-function ChamfInitRad(keyID) = keyParameters[keyID][12];
-function ChamfFinRad(keyID)  = keyParameters[keyID][13];
-function ChamExponent(keyID) = keyParameters[keyID][14];
-function StemExponent(keyID) = keyParameters[keyID][15];
+function CapRound0i(keyID)   = keyParameters[keyID][12];
+function CapRound0f(keyID)   = keyParameters[keyID][13];
+function CapRound1i(keyID)   = keyParameters[keyID][14];
+function CapRound1f(keyID)   = keyParameters[keyID][15];
+function ChamExponent(keyID) = keyParameters[keyID][16];
+function StemExponent(keyID) = keyParameters[keyID][17];
 
 dishParameters = //dishParameter[keyID][ParameterID]
 [ 
@@ -203,10 +210,15 @@ function CapRotation(t, keyID) =
 
 function CapTransform(t, keyID) = 
   [
-    pow(t/layers, WidExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)) + (1-pow(t/layers, WidExponent(keyID)))*BottomWidth(keyID) ,
+    pow(t/layers, WidExponent(keyID))*(BottomWidth(keyID) -TopWidthDiff(keyID)) + (1-pow(t/layers, WidExponent(keyID)))*BottomWidth(keyID) ,
     pow(t/layers, LenExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)) + (1-pow(t/layers, LenExponent(keyID)))*BottomLength(keyID)
   ];
-
+function CapRoundness(t, keyID) = 
+  [
+    pow(t/layers, ChamExponent(keyID))*(CapRound0f(keyID)) + (1-pow(t/layers, ChamExponent(keyID))*CapRound0i(keyID)),
+    pow(t/layers, ChamExponent(keyID))*(CapRound1f(keyID)) + (1-pow(t/layers, ChamExponent(keyID))*CapRound1i(keyID))
+  ];
+  
 function CapRadius(t, keyID) = pow(t/layers, ChamExponent(keyID))*ChamfFinRad(keyID) + (1-pow(t/layers, ChamExponent(keyID)))*ChamfInitRad(keyID);
 
 function InnerTransform(t, keyID) = 
@@ -235,12 +247,12 @@ function StemTransform(t, keyID) =
     pow(t/stemLayers, StemExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemLen - 2*slop)
   ];
   
-function StemRadius(t, keyID) = pow(t/stemLayers,3)*ChamfFinRad(keyID) + (1-pow(t/stemLayers, 3))*1;
+function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))*1;
   //Stem Exponent 
 
 
 ///----- KEY Builder Module
-module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false, Dish = true, Stem = false, homeDot = false) {
+module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false, Dish = true, Stem = false, homeDot = false, Stab = 0) {
   
   //Set Parameters for dish shape
   FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
@@ -257,16 +269,22 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
   difference(){
     union(){
       difference(){
-        skin([for (i=[0:layers-1]) transform(translation(CapTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), rounded_rectangle_profile(CapTransform(i, keyID),fn=fn,r=CapRadius(i, keyID)))]); //outer shell
+        skin([for (i=[0:layers-1]) transform(translation(CapTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(CapTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]); //outer shell
         
         //Cut inner shell
         if(Stem == true){ 
-          translate([0,0,-.001])skin([for (i=[0:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), rounded_rectangle_profile(InnerTransform(i, keyID),fn=fn,r=CapRadius(i, keyID)))]);
+          translate([0,0,-.001])skin([for (i=[0:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(InnerTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]);
         }
       }
       if(Stem == true){
-        rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop); // generate mx cherry stem, not compatible with box
+        rotate([0,0,stemRot])choc_stem(KeyHeight(keyID), slop); // generate mx cherry stem, not compatible with box
+        if (Stab != 0){
+          translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
+          translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
+        }
         translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //outer shell
+          
+        
       }
     //cut for fonts and extra pattern for light?
     }
@@ -275,7 +293,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
     
     //Fonts
     if(Legends ==  true){
-      //    #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,4,KeyHeight(keyID)-2.5])linear_extrude(height = 0.5)text( text = "Why?", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
+          #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-1,-5,KeyHeight(keyID)-2.5])linear_extrude(height = 1)text( text = "ver2", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       //  #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,-3.5,0])linear_extrude(height = 0.5)text( text = "Me", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       }
    //Dish Shape 
@@ -341,6 +359,20 @@ module cherry_stem(depth, slop) {
   }
 }
 
+module choc_stem() {
+  
+    translate([5.7/2,0,-3.4/2+2])difference(){
+    cube([1.25,3, 3.4], center= true);
+    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
+    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
+  }
+  translate([-5.7/2,0,-3.4/2+2])difference(){
+    cube([1.25,3, 3.4], center= true);
+    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
+    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
+  }
+  
+}
 /// ----- helper functions 
 function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [
 	for (index = [0:fn-1])
@@ -349,6 +381,32 @@ function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [
 			+ sign_x(index, fn) * [size[0]/2-r,0]
 			+ sign_y(index, fn) * [0,size[1]/2-r]
 ];
+
+function elliptical_rectangle(a = [1,1], b =[1,1], fn=32) = [
+    for (index = [0:fn-1]) // section right
+     let(theta1 = -atan(a[1]/b[1])+ 2*atan(a[1]/b[1])*index/fn) 
+      [b[1]*cos(theta1), a[1]*sin(theta1)]
+    + [a[0]*cos(atan(b[0]/a[0])) , 0]
+    - [b[1]*cos(atan(a[1]/b[1])) , 0],
+    
+    for(index = [0:fn-1]) // section Top
+     let(theta2 = atan(b[0]/a[0]) + (180 -2*atan(b[0]/a[0]))*index/fn) 
+      [a[0]*cos(theta2), b[0]*sin(theta2)]
+    - [0, b[0]*sin(atan(b[0]/a[0]))]
+    + [0, a[1]*sin(atan(a[1]/b[1]))],
+
+    for(index = [0:fn-1]) // section left
+     let(theta2 = -atan(a[1]/b[1])+180+ 2*atan(a[1]/b[1])*index/fn) 
+      [b[1]*cos(theta2), a[1]*sin(theta2)]
+    - [a[0]*cos(atan(b[0]/a[0])) , 0]
+    + [b[1]*cos(atan(a[1]/b[1])) , 0],
+    
+    for(index = [0:fn-1]) // section Top
+     let(theta2 = atan(b[0]/a[0]) + 180 + (180 -2*atan(b[0]/a[0]))*index/fn) 
+      [a[0]*cos(theta2), b[0]*sin(theta2)]
+    + [0, b[0]*sin(atan(b[0]/a[0]))]
+    - [0, a[1]*sin(atan(a[1]/b[1]))]
+]/2;
 
 function sign_x(i,n) = 
 	i < n/4 || i > n-n/4  ?  1 :
