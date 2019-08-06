@@ -13,20 +13,20 @@ Version 2: Eliptical Rectangle
 
 //Stab = 24 for 
 //TODO add shift 
- keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+ keycap(keyID = 10, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 // translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
 RowHome = [0,2.5,5,2.5,0,0];
 
-//for(Col = [0:5]){ 
-//  for(Row = [1:3]){
-//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
-//  }
-//}
+for(Col = [2:2]){ 
+  for(Row = [1:3]){
+  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
+  }
+}
 //
 //// thumb
 //  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([10, 0, 0])rotate([0,0,15])keycap(keyID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+//  translate([10, 0, 0])rotate([0,0,15])keycap(key ID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 //  translate([31, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
 //Parameters
@@ -95,7 +95,7 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [   6,    3,   15,  -50,      5,    1.7,     9,    15,     2,        5,    4,   13,  -30,      9,    16,     2], //R3
   [   6,    3,   12,  -50,      5,    1.7,     9,    15,     2,        6,    4,   13,  -30,      9,    16,     2], //R2
   //Column 2
-  [   5,  4.3,    5,  -48,      4,    1.7,   9.3,    10,     2,        6,    3,   13,  -30,    9.3,    22,     2], //R5
+  [   5,  4.3,    5,  -48,      4,    1.7,   9.3,    10,     2,        6,    3,   13,  -30,    9.3,    24,     2], //R5
   [   6,    3,   18,  -50,      5,    1.7,   8.5,    15,     2,        6,    4,   13,  -30,    8.5,    15,     2], //R4
   [   6,    3,   18,  -50,      5,    1.7,   8.5,    15,     2,        5,    4,   13,  -30,    8.5,    15,     2], //R3
   [   6,    3,   18,  -50,      5,    1.7,   8.8,    15,     2,        6,    4,   13,   30,    8.8,    16,     2], //R2
@@ -279,6 +279,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
         if (Stab != 0){
           translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
           translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
+          //TODO add binding support?
         }
         translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //outer shell
           

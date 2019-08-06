@@ -6,10 +6,10 @@ use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
 use <skin.scad>  
 
-//DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer
+//DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer with sculpted gergo thumb cluter
 
 /*Tester */
-keycap(keyID = 7, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+keycap(keyID = 1, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 // translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
@@ -50,21 +50,28 @@ stemLen = 6;
 stemCrossHeight = 1.8;
 extra_vertical = 0.6;
 stemLayers = 50; //resolution of stem to cap top transition
-//#cube([18.16, 18.16, 10], center = true);
+//#cube([18.16, 18.16, 10], center = true); // sanity check border
+
+//injection param
+draftAngle = 2; //degree  note:Stem Only
+//TODO: Add wall thickness transition?
+
 
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column 0
     [17.26,  17.26,   4.5, 	   2,  4.5,    0,   .0,     5,    -0,    -0,   2,   3,      2,      3,      2,      6,     2,       2], //Phat Fingers
-    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      4,      4,      1,      4,     1,       2], //Chicago Steno R2/R4
-    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      4,      4,      1,      4,     1,       2], //Chicago Steno R3 flat
+    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      4,      4,      1,      4,     2,       2], //Chicago Steno R2/R4
+    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      4,      4,      1,      4,     2,       2], //Chicago Steno R3 flat
 
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T0 R1 2u 
-    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T0 R2 1u
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T1 R2 2u
-    [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T2 R1 1.25
-    [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      4,      4,      1,      4,     1,       2]  //Chicago T3 R1 1.25
+    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T0 R1 2u 
+    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T0 R2 1u
+    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T1 R2 2u
+    [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T2 R1 1.25
+    [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T3 R1 1.25
+    
+    [17.26,  17.26,     2, 	   2,  5,    0,   .0,     0,    -0,    -0,     2,   3,      1,      3,      1,      3,     2,       2] //Phat Fingers Uniform
     
 ];
 
@@ -81,6 +88,8 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [  14,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,       14,    4,    2,   -35,   12,    15,     2], //Chicago T1 R2 2u
   [   6,    4,    2,  -35,      8,    1.8,   20,    24,     2,        6,    4,    7,   -45,   20,    23,     2], //Chicago T2 R1 1.25
   [   6,    4,    2,  -35,      8,    1.8,   15,    17,     2,        6,    4,    7,   -45,   15,    15,     2], //Chicago T3 R1 1.25
+  
+  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Phat Uniform
 ];
 
 
@@ -244,7 +253,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
         }
       }
       if(Stem == true){
-        rotate([0,0,stemRot])choc_stem(KeyHeight(keyID), slop); // generate mx cherry stem, not compatible with box
+        rotate([0,0,stemRot])choc_stem(draftAng = draftAngle); // generate mx cherry stem, not compatible with box
         if (Stab != 0){
           translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
           translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
@@ -326,20 +335,28 @@ module cherry_stem(depth, slop) {
   }
 }
 
-module choc_stem() {
+
+module choc_stem(draftAng = 2) {
+  stemHeinght = 3.4;
   
-    translate([5.7/2,0,-3.4/2+2])difference(){
-    cube([1.25,3, 3.4], center= true);
-    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
-    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
+  module Stem() {
+    difference(){
+      hull(){
+        translate([0,0,-stemHeinght/2])cube([1.25-sin(draftAng)*stemHeinght,3-sin(draftAng)*stemHeinght,.001], center= true);
+        translate([0,0,stemHeinght/2])cube([1.25,3,.001], center= true);
+      }
+      //cuts
+      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeinght, d2=7,3.5, center = true);
+      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeinght,d2=7,3.5, center = true);
+    }
   }
-  translate([-5.7/2,0,-3.4/2+2])difference(){
-    cube([1.25,3, 3.4], center= true);
-    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
-    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
-  }
+
+  translate([5.7/2,0,-3.4/2+2])Stem();
+  translate([-5.7/2,0,-3.4/2+2])Stem();
+
   
 }
+
 /// ----- helper functions 
 function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [
 	for (index = [0:fn-1])
