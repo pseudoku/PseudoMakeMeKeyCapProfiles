@@ -9,7 +9,7 @@ use <skin.scad>
 //DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer
 
 /*Tester */
-// keycap(keyID = 5, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+keycap(keyID = 5, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 // translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
@@ -22,31 +22,31 @@ RowHome = [0,2.5,5,2.5,0,0];
 //  }
 //}
 
-thumbStem = false;
+thumbStem = true;
 thumbDish = true;
 thumbVis  = false;
 thumbSec  = false;
 ////// thumb
-  translate([0,0,0])rotate([0,0,30])translate([-19,0,0])keycap(keyID = 3, cutLen = 0, Stem = thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,30])translate([-19,0,0])keycap(keyID = 3, cutLen = 0, Stem = thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
 //  #translate([0,0,0])rotate([0,0,30])translate([-19,0,0])cube([18.16, 18.16*2, 10], center = true);
-  translate([0,0,0])rotate([0,0,30])translate([-19,28,0])keycap(keyID = 4, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-  translate([0,0,0])rotate([0,0,30])translate([0,0,0])keycap(keyID = 5, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-  translate([0,0,0])rotate([0,0,15])translate([26,1.5,0])keycap(keyID = 6, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-  translate([0,0,0])rotate([0,0,0])translate([51,12,0])keycap(keyID = 7, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,30])translate([-19,28,0])keycap(keyID = 4, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,30])translate([0,0,0])keycap(keyID = 5, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,15])translate([26,1.5,0])keycap(keyID = 6, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,0])translate([51,12,0])keycap(keyID = 7, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
 
 //-Parameters
 wallthickness = 1.75;
 topthickness = 3; //2 for phat 3 for chicago
-stepsize = 50;  //resolution of Trajectory
-step = 2;       //resolution of ellipes 
+stepsize = 40;  //resolution of Trajectory
+step = 4;       //resolution of ellipes 
 fn = 32;          //resolution of Rounded Rectangles: 60 for output
-layers = 50;    //resolution of vertical Sweep: 50 for output
+layers = 40;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
 slop    = 0.3;
 stemRot = 0;
-stemWid = 8;
-stemLen = 6;
+stemWid = 6;
+stemLen = 8;
 stemCrossHeight = 1.8;
 extra_vertical = 0.6;
 stemLayers = 50; //resolution of stem to cap top transition
@@ -60,9 +60,9 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      4,      4,      1,      4,     1,       2], //Chicago Steno R2/R4
     [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      4,      4,      1,      4,     1,       2], //Chicago Steno R3 flat
 
-    [17.06,  35.16,     7, 	   3,  5.5,    0,    0,    -4,    -7,    -0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T0 R1 2u 
-    [17.06,  17.06,     7, 	   4,  7.0,    0,   .0,    -5,     3,     0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T0 R2 1u
-    [17.06,  35.16,     7, 	   3,  5.5,    0,    0,    -4,     7,    -0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T1 R2 2u
+    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T0 R1 2u 
+    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T0 R2 1u
+    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T1 R2 2u
     [17.06*1.50,17.16,  7, 	   5,  5.5,    0,    0,    -2,     4,     5,   2,   2,      4,      4,      1,      4,     1,       2], //Chicago T2 R1 1.25
     [17.16*1.25,17.16,  7, 	   5,  6.5,    0,    0,    -2,     3,    -0,   2,   2,      4,      4,      1,      4,     1,       2]  //Chicago T3 R1 1.25
     
