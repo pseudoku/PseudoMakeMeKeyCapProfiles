@@ -13,18 +13,18 @@ Version 2: Eliptical Rectangle
 
 //Stab = 24 for 
 //TODO add shift 
- keycap(keyID = 10, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+ keycap(keyID = 23, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 // translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
 RowHome = [0,2.5,5,2.5,0,0];
 
-for(Col = [2:2]){ 
-  for(Row = [1:3]){
-  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
-  }
-}
-//
-//// thumb
+//for(Col = [2:2]){ 
+//  for(Row = [1:3]){
+//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
+//  }
+//}
+////
+////// thumb
 //  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 //  translate([10, 0, 0])rotate([0,0,15])keycap(key ID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 //  translate([31, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
@@ -50,35 +50,35 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column 0
-    [17.16,  17.16*1.5, 6, 	   6,   14,    0,    0,   -13,   -10,    -5,   2,   2,      2,      6,      2,      4,     2,       2], //R5 0
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,    10,   -10,    -5,   2,   2,      2,      6,      2,      4,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,  7+4,    0,    0,    -2,   -10,    -5,   2,   2,      2,      6,      2,      4,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,   -10,   -10,    -5,   2,   2,      2,      6,      2,      4,     2,       2], //R2
+    [17.16,  17.16*1.5, 6, 	   6,   14,    0,    0,   -13,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R5 0
+    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,    10,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R4
+    [17.16,  17.16,   6.5, 	 6.5,  7+4,    0,    0,    -2,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,   -10,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 //Column 1
-    [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,     5,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R5 4
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -3,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,7+2.5,    0,    0,    -2,    -3,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -12,    -3,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R2
+    [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,     5,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 4
+    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
+    [17.16,  17.16,   6.5, 	 6.5,7+2.5,    0,    0,    -2,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -12,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 //Column 2 middle
-    [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,    10,    15,   2,   2,      2,      6,      2,      4,     2,       2], //R5 8
+    [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      3,     2,       2], //R5 8
     [17.16,  17.16,   6.5, 	 6.5,    8,    0,    0,     5,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,    7,    0,    0,    -2,     0,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,    8,    0,    0,   -12,     0,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R2
+    [17.16,  17.16,   6.5, 	 6.5,    7,    0,    0,    -2,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,    8,    0,    0,   -12,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 //Column 3
-    [17.16,  17.16,     6, 	   6, 11+3,    0,    0,    13,    -4,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R5 12
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -4,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,  7+3,    0,    0,    -2,    -4,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -10,    -4,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R2
+    [17.16,  17.16,     6, 	   6, 11+3,    0,    0,    13,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 12
+    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
+    [17.16,  17.16,   6.5, 	 6.5,  7+3,    0,    0,    -2,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -10,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 //Column 4
-    [17.16,  17.16,     6, 	   6,11+5.5,   0,    0,    13,   -10,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R5 16
-    [17.16,  17.16,   6.5, 	 6.5,8+5.5,    0,    0,     5,   -10,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,7+5.5,    0,    0,    -5,   -10,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,   -12,     5,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R2
+    [17.16,  17.16,     6, 	   6,11+5.5,   0,    0,    13,   -10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 16
+    [17.16,  17.16,   6.5, 	 6.5,8+5.5,    0,    0,     5,   -10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
+    [17.16,  17.16,   6.5, 	 6.5,7+5.5,    0,    0,    -5,   -10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,   -12,     5,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 //Column 5
-    [17.16,  17.16,     6, 	   6, 11+4,    0,    0,    13,    -6,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R5 20
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,     5,    -6,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,  7+4,    0,    0,    -2,    -6,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+6,    0,    0,   -12,    10,     0,   2,   2,      2,      6,      2,      4,     2,       2], //R2
+    [17.16,  17.16,     6, 	   6, 11+4,    0,    0,    13,    -6,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 20
+    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,     5,    -6,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
+    [17.16,  17.16,   6.5, 	 6.5,  7+4,    0,    0,    -2,    -6,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,  8+6,    0,    0,   -12,    10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 ];
 
 dishParameters = //dishParameter[keyID][ParameterID]
@@ -213,8 +213,8 @@ function CapTransform(t, keyID) =
   ];
 function CapRoundness(t, keyID) = 
   [
-    pow(t/layers, ChamExponent(keyID))*(CapRound0f(keyID)) + (1-pow(t/layers, ChamExponent(keyID))*CapRound0i(keyID)),
-    pow(t/layers, ChamExponent(keyID))*(CapRound1f(keyID)) + (1-pow(t/layers, ChamExponent(keyID))*CapRound1i(keyID))
+    pow(t/layers, ChamExponent(keyID))*(CapRound0f(keyID)) + (1-pow(t/layers, ChamExponent(keyID)))*CapRound0i(keyID),
+    pow(t/layers, ChamExponent(keyID))*(CapRound1f(keyID)) + (1-pow(t/layers, ChamExponent(keyID)))*CapRound1i(keyID)
   ];
   
 function CapRadius(t, keyID) = pow(t/layers, ChamExponent(keyID))*ChamfFinRad(keyID) + (1-pow(t/layers, ChamExponent(keyID)))*ChamfInitRad(keyID);
@@ -281,9 +281,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
           translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
           //TODO add binding support?
         }
-        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //outer shell
-          
-        
+        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //Transition Support for taller profile
       }
     //cut for fonts and extra pattern for light?
     }

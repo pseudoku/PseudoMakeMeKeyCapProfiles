@@ -9,7 +9,7 @@ use <skin.scad>
 //DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer with sculpted gergo thumb cluter
 
 /*Tester */
-keycap(keyID = 1, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 // translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
@@ -61,15 +61,15 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column 0
-    [17.26,  17.26,   4.5, 	   2,  4.5,    0,   .0,     5,    -0,    -0,   2,   3,      2,      3,      2,      6,     2,       2], //Phat Fingers
-    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      4,      4,      1,      4,     2,       2], //Chicago Steno R2/R4
-    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      4,      4,      1,      4,     2,       2], //Chicago Steno R3 flat
+    [17.26,  17.26,   4.5, 	   2,  4.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      2,      1,      6,     2,       2], //Phat Fingers
+    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2/R4
+    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
 
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T0 R1 2u 
-    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T0 R2 1u
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T1 R2 2u
-    [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T2 R1 1.25
-    [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      4,      4,      1,      4,     2,       2], //Chicago T3 R1 1.25
+    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R1 2u 
+    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R2 1u
+    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T1 R2 2u
+    [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T2 R1 1.25
+    [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T3 R1 1.25
     
     [17.26,  17.26,     2, 	   2,  5,    0,   .0,     0,    -0,    -0,     2,   3,      1,      3,      1,      3,     2,       2] //Phat Fingers Uniform
     
@@ -191,8 +191,8 @@ function CapTransform(t, keyID) =
   ];
 function CapRoundness(t, keyID) = 
   [
-    pow(t/layers, ChamExponent(keyID))*(CapRound0f(keyID)) + (1-pow(t/layers, ChamExponent(keyID))*CapRound0i(keyID)),
-    pow(t/layers, ChamExponent(keyID))*(CapRound1f(keyID)) + (1-pow(t/layers, ChamExponent(keyID))*CapRound1i(keyID))
+    pow(t/layers, ChamExponent(keyID))*(CapRound0f(keyID)) + (1-pow(t/layers, ChamExponent(keyID)))*CapRound0i(keyID),
+    pow(t/layers, ChamExponent(keyID))*(CapRound1f(keyID)) + (1-pow(t/layers, ChamExponent(keyID)))*CapRound1i(keyID)
   ];
   
 function CapRadius(t, keyID) = pow(t/layers, ChamExponent(keyID))*ChamfFinRad(keyID) + (1-pow(t/layers, ChamExponent(keyID)))*ChamfInitRad(keyID);
