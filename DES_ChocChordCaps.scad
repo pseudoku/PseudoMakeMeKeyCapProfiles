@@ -9,18 +9,35 @@ use <skin.scad>
 //DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer with sculpted gergo thumb cluter
 
 /*Tester */
-keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+
+//Test Mods
+translate([0,20, 0])keycap(keyID = 2, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+translate([0,40, 0])rotate([0,0,180])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+
+translate([24,0, 0])keycap(keyID = 8, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+
+translate([24,20, 0])keycap(keyID = 9, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+translate([24,40, 0])rotate([0,0,180])keycap(keyID = 8, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 // translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
 
 RowHome = [0,2.5,5,2.5,0,0];
 
-//for(Col = [0:0]){ 
-//  for(Row = [1:2]){
-//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = true, crossSection = true,Legends = false);
-//  }
-//}
+ChocCut = 0;
+// Levee Test
+//  translate([19*0, 5, 0])rotate([-15,0,0])
+//    keycap(keyID = 9, cutLen = -ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([19*0, 19-5, 0])rotate([15,0,0])
+//    keycap(keyID = 10, cutLen = ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([-19+5, 19*.5, .5])rotate([15,0,90])
+//    keycap(keyID = 11, cutLen = ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([19*1, 19*1, 0])
+//    keycap(keyID = 12, cutLen = ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+
+//Test 1.5 mods 
+
 
 thumbStem = true;
 thumbDish = true;
@@ -37,7 +54,7 @@ thumbSec  = false;
 //-Parameters
 wallthickness = 1.75;
 topthickness = 3; //2 for phat 3 for chicago
-stepsize = 40;  //resolution of Trajectory
+stepsize = 50;  //resolution of Trajectory
 step = 4;       //resolution of ellipes 
 fn = 32;          //resolution of Rounded Rectangles: 60 for output
 layers = 40;    //resolution of vertical Sweep: 50 for output
@@ -53,7 +70,7 @@ stemLayers = 50; //resolution of stem to cap top transition
 //#cube([18.16, 18.16, 10], center = true); // sanity check border
 
 //injection param
-draftAngle = 2; //degree  note:Stem Only
+draftAngle = 0; //degree  note:Stem Only
 //TODO: Add wall thickness transition?
 
 
@@ -65,13 +82,28 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2/R4
     [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
 
+    //Gergo Thumb Sculpted 
     [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R1 2u 
     [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R2 1u
     [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T1 R2 2u
     [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T2 R1 1.25
     [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T3 R1 1.25
     
-    [17.26,  17.26,     2, 	   2,  5,    0,   .0,     0,    -0,    -0,     2,   3,      1,      3,      1,      3,     2,       2] //Phat Fingers Uniform
+    //Gergo 1.5 mods 
+    [17.06*1.5,17.26,   7, 	   4,  5.5,    0,   .0,     5,     0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2/R4
+    [17.06*1.5,17.26,   7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3flat
+    
+    //Phat Fingers Uniform
+    [17.26,  17.26,     2, 	   2,  5,    0,   .0,     0,    -0,    -0,     2,   3,      1,      3,      1,      3,     2,       2],
+    
+    //Levee: Chopped Assuming 
+    [17.26,  17.26,     3, 	   4,  5.5,   .5,   .0,     2,     5,    -0,   2,   3,     .5,      1,     .5,      1,     2,       2], //Bottom Left
+    [17.26,  17.26,     3, 	   4,  5.5,   .5,   .0,    -2,     5,    -0,   2,   3,     .5,      1,     .5,      1,     2,       2], //Top Left 
+    [17.26*1.5, 17.26,  7, 	   4,  6.5,    0,   .0,     2,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Bottom Right
+    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //TOp Right
+    
+    
+    
     
 ];
 
@@ -88,8 +120,16 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [  14,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,       14,    4,    2,   -35,   12,    15,     2], //Chicago T1 R2 2u
   [   6,    4,    2,  -35,      8,    1.8,   20,    24,     2,        6,    4,    7,   -45,   20,    23,     2], //Chicago T2 R1 1.25
   [   6,    4,    2,  -35,      8,    1.8,   15,    17,     2,        6,    4,    7,   -45,   15,    15,     2], //Chicago T3 R1 1.25
+  //Gergo 1.5 mods 
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno mod R2/R4
+  [   6,    4,    5,  -40,      8,    1.8,   22,    25,     2,        6,    4,    5,   -40,   22,    25,     2], //Chicago Steno mod R3 flat
   
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Phat Uniform
+  
+  [   5, 4.15,    3,  -50,      5,    1.8,   20,     8,     2,        3,    4,  -30,    20,   20,     8,     2], //Chicago Steno R2/R4
+  [   3, 4.15,  -30,   20,      5,    1.8,   20,     8,     2,        5, 4.15,    3,   -50,   20,     8,     2], //Chicago Steno R2/R4
+  [   6,    4,  -25,  -50,     20,    3,     22,    25,     2,        6,    4,    5,   -35,   22,    25,     2], //Chicago Steno R2/R4
+  [   6,    4,    2,  -35,      8,    1.8,   11,    15,     2,        6,    4,    7,   -50,   11,    17,     2], //Chicago Steno R2/R4n
 ];
 
 
@@ -268,6 +308,10 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
     //Cuts
     
     //Fonts
+    if(cutLen != 0){
+      translate([0,sign(cutLen)*(BottomLength(keyID)+CapRound0i(keyID)+abs(cutLen))/2,0])
+        cube([BottomWidth(keyID)+CapRound1i(keyID)+1,BottomLength(keyID)+CapRound0i(keyID),50], center = true);
+    }
     if(Legends ==  true){
       #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-1,-5,KeyHeight(keyID)-2.5])linear_extrude(height = 1)text( text = "ver2", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       //  #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,-3.5,0])linear_extrude(height = 0.5)text( text = "Me", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
@@ -275,7 +319,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
    //Dish Shape 
     if(Dish == true){
      if(visualizeDish == false){
-      translate([-TopWidShift(keyID),.00001-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
+      translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
       translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(BackCurve);
      } else {
       #translate([-TopWidShift(keyID),.00001-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)]) rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
