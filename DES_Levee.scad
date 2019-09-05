@@ -11,14 +11,14 @@ use <skin.scad>
 /*Tester */
 
 difference(){
-  keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+  mirror([1,0,0])keycap(keyID = 2, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //  translate([8.5,8, 9])sphere(d=12);
 }
-translate([0,16, 0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-translate([17,0, 0])mirror([1,0,0])keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-translate([17,16, 0])mirror([1,0,0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//translate([0,16, 0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//
+//translate([17,0, 0])mirror([1,0,0])keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//
+//translate([17,16, 0])mirror([1,0,0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 //Levee Additional Dist
 
@@ -72,8 +72,8 @@ thumbSec  = false;
 wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 3; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
-step = 6;       //resolution of ellipes 
-fn = 32;          //resolution of Rounded Rectangles: 60 for output
+step = 1;       //resolution of ellipes 
+fn = 64;          //resolution of Rounded Rectangles: 60 for output
 layers = 40;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
@@ -94,30 +94,12 @@ draftAngle = 0; //degree  note:Stem Only
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
-    //Column 0
-    [17.26,  17.26,   4.5, 	   2,  4.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      2,      1,      6,     2,       2], //Phat Fingers 0
-    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2/R4
-    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
-
-    //Gergo Thumb Sculpted 
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R1 2u 3
-    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R2 1u
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T1 R2 2u
-    [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T2 R1 1.25
-    [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T3 R1 1.25
-    
-    //Gergo 1.5 mods 
-    [17.06*1.5,17.26,   7, 	   4,  5.5,    0,   .0,     5,     0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2/R4 8
-    [17.06*1.5,17.26,   7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3flat
-    
-    //Phat Fingers Uniform
-    [17.26,  17.26,     2, 	   2,  5,      0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      3,     2,       2], //10
-    
+    //Column 0    
     //Levee: Chicago in choc Dimension 
     [16.10,  15.10,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2], //Chicago Steno R2/R4
     [16.10,  15.10,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,    .75,      3,     .75,      4,     2,       2], //Chicago Steno R3 flat
     
-    [16.10,  15.10,  4.25, 	3.25,  5.2,  -.8, -0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
+    [16.10,  15.10,  4.25, 	3.25,  5.5,  -.7,  0.7,     0,    -4,    -0,   2,   2,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
     [16.10,  15.10,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
     
 ];
@@ -126,30 +108,21 @@ dishParameters = //dishParameter[keyID][ParameterID]
 [ 
 //FFwd1 FFwd2 FPit1 FPit2  DshDep DshHDif FArcIn FArcFn FArcEx     BFwd1 BFwd2 BPit1 BPit2  BArcIn BArcFn BArcEx
   //Column 0
-  [   6,    4,    7,  -50,      5,    1.0,   15,    25,     2,        6,    4,    2,   -35,   15,    19,     2], //Phat Fingers
-  [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
-  [   6,    4,    5,  -40,      8,    1.8,   11,    15,     2,        6,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
-  
-  [  14,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,       14,    4,    2,   -35,   12,    15,     2], //Chicago T0 R1 2u 
-  [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago T0 R2 1u
-  [  14,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,       14,    4,    2,   -35,   12,    15,     2], //Chicago T1 R2 2u
-  [   6,    4,    2,  -35,      8,    1.8,   20,    24,     2,        6,    4,    7,   -45,   20,    23,     2], //Chicago T2 R1 1.25
-  [   6,    4,    2,  -35,      8,    1.8,   15,    17,     2,        6,    4,    7,   -45,   15,    15,     2], //Chicago T3 R1 1.25
-  //Gergo 1.5 mods 
-  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno mod R2/R4
-  [   6,    4,    5,  -40,      8,    1.8,   22,    25,     2,        6,    4,    5,   -40,   22,    25,     2], //Chicago Steno mod R3 flat
-  
-  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Phat Uniform
-  
   [ 4.5,    4,    7,  -50,      8,    1.8,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
   [ 4.5,    4,    5,  -40,      8,    1.8,   11,    15,     2,      4.5,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
   
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
-  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Secondary Dish 2/eR4
 ];
 
-
+SecondaryDishParam = 
+[  
+  [ 4.5,    4,    7,  -50,      8,    1.8,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
+  [ 4.5,    4,    5,  -40,      8,    1.8,   11,    15,     2,      4.5,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
+  
+  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Levee Steno R2/R4
+  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
+];
 function BottomWidth(keyID)  = keyParameters[keyID][0];  //
 function BottomLength(keyID) = keyParameters[keyID][1];  // 
 function TopWidthDiff(keyID) = keyParameters[keyID][2];  //
@@ -186,6 +159,23 @@ function BackInitArc(keyID)   = dishParameters[keyID][13];
 function BackFinArc(keyID)    = dishParameters[keyID][14];
 function BackArcExpo(keyID)   = dishParameters[keyID][15];
 
+function SFrontForward1(keyID) = SecondaryDishParam[keyID][0];  //
+function SFrontForward2(keyID) = SecondaryDishParam[keyID][1];  // 
+function SFrontPitch1(keyID)   = SecondaryDishParam[keyID][2];  //
+function SFrontPitch2(keyID)   = SecondaryDishParam[keyID][3];  //
+function SDishDepth(keyID)     = SecondaryDishParam[keyID][4];  //
+function SDishHeightDif(keyID) = SecondaryDishParam[keyID][5];  //
+function SFrontInitArc(keyID)  = SecondaryDishParam[keyID][6];
+function SFrontFinArc(keyID)   = SecondaryDishParam[keyID][7];
+function SFrontArcExpo(keyID)  = SecondaryDishParam[keyID][8];
+function SBackForward1(keyID)  = SecondaryDishParam[keyID][9];  //
+function SBackForward2(keyID)  = SecondaryDishParam[keyID][10];  // 
+function SBackPitch1(keyID)    = SecondaryDishParam[keyID][11];  //
+function SBackPitch2(keyID)    = SecondaryDishParam[keyID][12];  //
+function SBackInitArc(keyID)   = SecondaryDishParam[keyID][13];
+function SBackFinArc(keyID)    = SecondaryDishParam[keyID][14];
+function SBackArcExpo(keyID)   = SecondaryDishParam[keyID][15];
+
 
 function FrontTrajectory(keyID) = 
   [
@@ -199,6 +189,17 @@ function BackTrajectory (keyID) =
     trajectory(forward = BackForward2(keyID), pitch =  BackPitch2(keyID)),
   ];
 
+function SFrontTrajectory(keyID) = 
+  [
+    trajectory(forward = SFrontForward1(keyID), pitch =  SFrontPitch1(keyID)), //more param available: yaw, roll, scale
+    trajectory(forward = SFrontForward2(keyID), pitch =  SFrontPitch2(keyID))  //You can add more traj if you wish 
+  ];
+
+function SBackTrajectory (keyID) = 
+  [
+    trajectory(forward = SBackForward1(keyID), pitch =  SBackPitch1(keyID)),
+    trajectory(forward = SBackForward2(keyID), pitch =  SBackPitch2(keyID)),
+  ];
 //------- function defining Dish Shapes
 
 function ellipse(a, b, d = 0, rot1 = 0, rot2 = 360) = [for (t = [rot1:step:rot2]) [a*cos(t)+a, b*sin(t)*(1+d*cos(t))]]; //Centered at a apex to avoid inverted face
@@ -285,7 +286,7 @@ function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))
 
 
 ///----- KEY Builder Module
-module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false, Dish = true, Stem = false, homeDot = false, Stab = 0, Legends = false) {
+module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false, Dish = true, SecondaryDish = false, Stem = false, homeDot = false, Stab = 0, Legends = false) {
   
   //Set Parameters for dish shape
   FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
@@ -298,6 +299,15 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
   FrontCurve = [ for(i=[0:len(FrontPath)-1]) transform(FrontPath[i], DishShape(DishDepth(keyID), FrontDishArc(i), 1, d = 0)) ];  
   BackCurve  = [ for(i=[0:len(BackPath)-1])  transform(BackPath[i],  DishShape(DishDepth(keyID),  BackDishArc(i), 1, d = 0)) ];
   
+  //Secondary Dish
+  SFrontPath = quantize_trajectories(SFrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
+  SBackPath  = quantize_trajectories(SBackTrajectory(keyID),  steps = stepsize, loop=false, start_position= $t*4);
+  
+  function SFrontDishArc(t) =  pow((t)/(len(SFrontPath)),SFrontArcExpo(keyID))*SFrontFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SFrontArcExpo(keyID)))*FrontInitArc(keyID); 
+  function SBackDishArc(t)  =  pow((t)/(len(SFrontPath)),SBackArcExpo(keyID))*SBackFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SBackArcExpo(keyID)))*SBackInitArc(keyID);
+  
+  SFrontCurve = [ for(i=[0:len(SFrontPath)-1]) transform(SFrontPath[i], DishShape(SDishDepth(keyID), SFrontDishArc(i), 1, d = 0)) ];  
+  SBackCurve  = [ for(i=[0:len(SBackPath)-1])  transform(SBackPath[i],  DishShape(SDishDepth(keyID),  SBackDishArc(i), 1, d = 0)) ];
   //builds
   difference(){
     union(){
@@ -341,7 +351,10 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
      } else {
       #translate([-TopWidShift(keyID),.0001-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)]) rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
       #translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(BackCurve);
-     } 
+     }
+     if(SecondaryDish == true){
+       translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(SBackCurve);
+     }
    }
      if(crossSection == true) {
        translate([0,-25,-.1])cube([15,50,15]); 
@@ -398,7 +411,7 @@ module cherry_stem(depth, slop) {
 
 
 module choc_stem(draftAng = 2) {
-  stemHeinght = 3.4;
+  stemHeinght = 3.3;
   
   module Stem() {
     difference(){
@@ -412,8 +425,8 @@ module choc_stem(draftAng = 2) {
     }
   }
 
-  translate([5.7/2,0,-3.4/2+2])Stem();
-  translate([-5.7/2,0,-3.4/2+2])Stem();
+  translate([5.7/2,0,-stemHeinght/2+2])Stem();
+  translate([-5.7/2,0,-stemHeinght/2+2])Stem();
 
   
 }
