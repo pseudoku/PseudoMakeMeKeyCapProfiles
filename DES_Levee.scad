@@ -10,70 +10,30 @@ use <skin.scad>
 
 /*Tester */
 
-difference(){
-  mirror([1,0,0])keycap(keyID = 2, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//  translate([8.5,8, 9])sphere(d=12);
-}
-//translate([0,16, 0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//
-//translate([17,0, 0])mirror([1,0,0])keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//
-//translate([17,16, 0])mirror([1,0,0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
-//Levee Additional Dist
+translate([0, 0, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+  translate([0,-17.5, 0])rotate([0,0,0])mirror([0,1,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false); 
+  
+  translate([18,-17.5, 0])rotate([0,0,180])mirror([0,0,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+  translate([18, 0, 0])rotate([0,0,180])mirror([0,1,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = true, Legends = false);
+  
 
-
-//Test Mods
-//translate([0,20, 0])keycap(keyID = 2, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([0,40, 0])rotate([0,0,180])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([0,0, 0])rotate([0,0,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-//translate([20,19, 0])keycap(keyID = 12, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([20,38, 0])rotate([0,0,180])keycap(keyID = 11, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([20,0, 0])rotate([0,0,0])keycap(keyID = 11, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-//translate([24,0, 0])keycap(keyID = 8, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//
-//translate([24,20, 0])keycap(keyID = 9, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([24,40, 0])rotate([0,0,180])keycap(keyID = 8, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//
-// translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
-// translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
-
-RowHome = [0,2.5,5,2.5,0,0];
-//#translate([20,0,0])cube([14.5, 13.5, 10], center = true); // internal check
+//#translate([0,0,0])cube([14.5, 13.5, 10], center = true); // internal check
+//#translate([0,0,0])cube([17.5, 16.5, 10], center = true); // internal check
 ChocCut = 0;
-// Levee Test
-//  translate([19*0, 5, 0])rotate([-15,0,0])
-//    keycap(keyID = 9, cutLen = -ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([19*0, 19-5, 0])rotate([15,0,0])
-//    keycap(keyID = 10, cutLen = ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([-19+5, 19*.5, .5])rotate([15,0,90])
-//    keycap(keyID = 11, cutLen = ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([19*1, 19*1, 0])
-//    keycap(keyID = 12, cutLen = ChocCut, Stem = thumbStem,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-
-//Test 1.5 mods 
-
 
 thumbStem = true;
 thumbDish = true;
 thumbVis  = false;
 thumbSec  = false;
-////// thumb
-//  translate([0,0,0])rotate([0,0,30])translate([-19,0,0])keycap(keyID = 3, cutLen = 0, Stem = thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
 
-//  translate([0,0,0])rotate([0,0,30])translate([-19,28,0])keycap(keyID = 4, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([0,0,0])rotate([0,0,30])translate([0,0,0])keycap(keyID = 5, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([0,0,0])rotate([0,0,15])translate([26,1.5,0])keycap(keyID = 6, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([0,0,0])rotate([0,0,0])translate([51,12,0])keycap(keyID = 7, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
 
 //-Parameters
 wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 3; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
-step = 1;       //resolution of ellipes 
-fn = 64;          //resolution of Rounded Rectangles: 60 for output
+step = 6;       //resolution of ellipes 
+fn = 32;          //resolution of Rounded Rectangles: 60 for output
 layers = 40;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
@@ -96,11 +56,11 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
     //Column 0    
     //Levee: Chicago in choc Dimension 
-    [16.10,  15.10,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2], //Chicago Steno R2/R4
-    [16.10,  15.10,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,    .75,      3,     .75,      4,     2,       2], //Chicago Steno R3 flat
+    [16.80,  15.80,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2], //Chicago Steno R2/R4
+    [16.80,  15.60,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,    .75,      3,     .75,      4,     2,       2], //Chicago Steno R3 flat
     
-    [16.10,  15.10,  4.25, 	3.25,  5.5,  -.7,  0.7,     0,    -4,    -0,   2,   2,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
-    [16.10,  15.10,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
+    [17.20,  16.00,  4.25, 	3.25,  5.5,  -.7,  0.7,     0,    -4,    -0,   2,   2,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
+    [17.20,  16.00,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
     
 ];
 
@@ -117,11 +77,11 @@ dishParameters = //dishParameter[keyID][ParameterID]
 
 SecondaryDishParam = 
 [  
-  [ 4.5,    4,    7,  -50,      8,    1.8,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
-  [ 4.5,    4,    5,  -40,      8,    1.8,   11,    15,     2,      4.5,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
+  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Chicago Steno R2/R4
+  [   6,  3.5,    7,  -50,      3,  2.5,   10,    20,     3,          3,    4,   10,     0,   10,    5,     3], //Chicago Steno R3 flat
   
   [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Levee Steno R2/R4
-  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
+  [   6,  3.5,    7,  -50,      5,  1.0,   16,    23,     2,          6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
 ];
 function BottomWidth(keyID)  = keyParameters[keyID][0];  //
 function BottomLength(keyID) = keyParameters[keyID][1];  // 
@@ -192,13 +152,15 @@ function BackTrajectory (keyID) =
 function SFrontTrajectory(keyID) = 
   [
     trajectory(forward = SFrontForward1(keyID), pitch =  SFrontPitch1(keyID)), //more param available: yaw, roll, scale
-    trajectory(forward = SFrontForward2(keyID), pitch =  SFrontPitch2(keyID))  //You can add more traj if you wish 
+    trajectory(forward = SFrontForward2(keyID), pitch =  SFrontPitch2(keyID)),  //You can add more traj if you wish 
   ];
 
 function SBackTrajectory (keyID) = 
   [
     trajectory(forward = SBackForward1(keyID), pitch =  SBackPitch1(keyID)),
     trajectory(forward = SBackForward2(keyID), pitch =  SBackPitch2(keyID)),
+    trajectory(forward = 4, pitch =  -15),
+    trajectory(forward = 6, pitch =  -5),
   ];
 //------- function defining Dish Shapes
 
@@ -303,8 +265,8 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
   SFrontPath = quantize_trajectories(SFrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
   SBackPath  = quantize_trajectories(SBackTrajectory(keyID),  steps = stepsize, loop=false, start_position= $t*4);
   
-  function SFrontDishArc(t) =  pow((t)/(len(SFrontPath)),SFrontArcExpo(keyID))*SFrontFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SFrontArcExpo(keyID)))*FrontInitArc(keyID); 
-  function SBackDishArc(t)  =  pow((t)/(len(SFrontPath)),SBackArcExpo(keyID))*SBackFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SBackArcExpo(keyID)))*SBackInitArc(keyID);
+  function SFrontDishArc(t) =  pow((t)/(len(SFrontPath)),SFrontArcExpo(keyID))*SFrontFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SFrontArcExpo(keyID)))*SFrontInitArc(keyID); 
+  function SBackDishArc(t)  =  pow((t)/(len(SBackPath)),SBackArcExpo(keyID))*SBackFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SBackArcExpo(keyID)))*SBackInitArc(keyID);
   
   SFrontCurve = [ for(i=[0:len(SFrontPath)-1]) transform(SFrontPath[i], DishShape(SDishDepth(keyID), SFrontDishArc(i), 1, d = 0)) ];  
   SBackCurve  = [ for(i=[0:len(SBackPath)-1])  transform(SBackPath[i],  DishShape(SDishDepth(keyID),  SBackDishArc(i), 1, d = 0)) ];
@@ -354,6 +316,12 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
      }
      if(SecondaryDish == true){
        translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(SBackCurve);
+       translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(SFrontCurve);
+       
+       
+       rotate([0,0,180])translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(SBackCurve);
+       
+       rotate([0,0,180])translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(SFrontCurve);
      }
    }
      if(crossSection == true) {
