@@ -13,18 +13,18 @@ Version 2: Eliptical Rectangle
 //#square([18.16, 18.16], center = true);
 
 //TODO add shift 
-keycap(keyID = 28, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+mirror([1,0,0])keycap(keyID = 33, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
-// translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
+//n translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
 RowHome = [0,2.5,5,2.5,0,0];
 
-//for(Col = [0:2]){ 
+//for(Col = [6:6]){ 
 //  for(Row = [1:3]){
 //  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = false,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
 //  } 
 //}
-////
+
 //////corne thumb
 //  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 //  translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
@@ -37,6 +37,13 @@ RowHome = [0,2.5,5,2.5,0,0];
 //  translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 27, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 //  translate([26, 2.2, 0])rotate([0,0,0])keycap(keyID = 28, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
+//normie hipro
+//  for(Row = [0:4]){
+//  translate([0, 19*Row, 0])keycap(keyID = 29+Row, cutLen = 0, Stem = false,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
+//  } 
+
+//#translate([0,38,13])cube([18-5.7, 18-5.7,1],center = true);
+
 //Parameters
 wallthickness = 2;   
 topthickness  = 3;   //
@@ -48,8 +55,8 @@ dotRadius     = 1.25;   //home dot size
 //---Stem param
 slop    = 0.25;
 stemRot = 0;
-stemWid = 7.2;
-stemLen = 5.5;
+stemWid = 5.5;
+stemLen = 7.2;
 stemCrossHeight = 4;
 extra_vertical  = 0.6;
 StemBrimDep     = 0.75; 
@@ -59,17 +66,17 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column 0
-    [17.16,  17.16*1.5, 6, 	   7,   13,    0,    0,   -13,    10,    -5,   2,   2,      1,   4.85,      1,      3,     2,       2], //R5 0
+    [17.16,  17.16*1.5, 6, 	   7,   13,    0,    0,   -13,    10,    -5,   2,   2,      1,   4.85,      1,      3,     2,       2], //R5 0 Corne thumb
     [17.16,  17.16,   6.5, 	 6.5,  9+4,    0,    0,    12,   -10,    -5,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
     [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,    -2,   -10,    -5,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
     [17.16,  17.16,   6.5, 	 6.5,  9+4,    0,    0,   -10,   -10,    -5,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
 //Column 1
-    [17.16,  17.16,     4, 	   5,   14,    0,    0,   -13,     5,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 4
+    [17.16,  17.16,     4, 	   5,   14,    0,    0,   -13,     5,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 4 corne thumb
     [17.16,  17.16,   6.5, 	 6.5,  9+3,    0,    0,    12,    -3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
     [17.16,  17.16,   6.5, 	 6.5,8+2.5,    0,    0,    -2,    -3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
     [17.16,  17.16,   6.5, 	 6.5,  9+3,    0,    0,   -12,    -3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
 //Column 2 middle
-    [17.16,  17.16,     4, 	   6,   15,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      2,     2,       2], //R5 8
+    [17.16,  17.16,     4, 	   6,   15,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      2,     2,       2], //R5 8 corne thumb
     [17.16,  17.16,   6.5, 	 6.5,    9,    0,    0,    10,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
     [17.16,  17.16,   6.5, 	 6.5,    8,    0,    0,    -2,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
     [17.16,  17.16,   6.5, 	 6.5,    9,    0,    0,   -12,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
@@ -94,7 +101,12 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [17.16,  17.16*2,   6, 	   7,   11,    0,    0,    -8,    10,    -5,   2,   2,      1,   4.85,      1,    3.5,     2,       2], //T1R1 2u
     [17.16,  17.16,     4, 	   5,   12,    0,    0,   -13,     5,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //T2R1 
     [17.16,  17.16,     4, 	   6,   13,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      2,     2,       2], //T3R1 
- 
+//normie hipro
+    [17.16,  17.16,   6.5, 	 6.5,   11,    0,    0,   -11,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 8 corne thumb
+    [17.16,  17.16,   6.5, 	 6.5, 11.0,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [17.16,  17.16,   6.5, 	 6.5,    9,    0,    0,     3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,   10,    0,    0,   -11,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    [17.16,  17.16,   6.5, 	 6.5, 14.0,    0,    0,   -14,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R1
 ];
 
 dishParameters = //dishParameter[keyID][ParameterID]
@@ -136,6 +148,12 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [  13,  4.5,    7,  -39,      4,    1.8,   9.5,    15,     2,       13,    4,    8,  -30,    9.5,    20,     2], //T1R1 2u
   [   5,  4.4,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,   13,  -30,   10.5,    18,     2], //T2R1 
   [   5,  4.4,    5,  -48,      4,    1.9,    11,    12,     2,        6,    4,   13,  -35,     11,    28,     2], //T3R1 
+  
+  [   6,    3,   10,  -50,      5,    1.8,   8.8,    15,     2,        6,    4,   13,   30,    8.8,    16,     2], //R5
+  [   6,    3,   18,  -50,      5,    1.8,   8.8,    15,     2,        5,  4.4,    5,  -55,    8.8,    15,     2], //R4
+  [   6,    3,   18,  -55,      5,    1.8,   8.8,    15,     2,        5,  3.5,    8,  -55,    8.8,    15,     2], //R3
+  [   6,    3,   10,  -50,      5,    1.8,   8.8,    15,     2,        5,    4,   12,  -55,    8.8,    16,     2], //R2
+  [   5,  3.5,    8,  -50,      5,    1.8,   8.8,    15,     2,        6,    4,   13,   30,    8.8,    16,     2], //R1
 ];
  
 function FrontForward1(keyID) = dishParameters[keyID][0];  //

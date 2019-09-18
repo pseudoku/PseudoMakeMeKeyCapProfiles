@@ -9,15 +9,15 @@ use <skin.scad>
 //DP (Distored Pyramidal) [Double Penetration] Profile  
 
 //TODO add shift 
-keycap(keyID = 9, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
+translate([0, -19, 0])keycap(keyID = 4, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
 ////fullsetee
 RowHome = [0,2.5,5,2.5,0,0];
 
-//for(Col = [4:4]){ 
-//  for(Row = [1:3]){
-//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = false, crossSection = true);
-//  }
-//}
+for(Col = [0:0]){ 
+  for(Row = [0:3]){
+  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = true, crossSection = false);
+  }
+}
 
 ////// thumb
 //  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
@@ -25,12 +25,12 @@ RowHome = [0,2.5,5,2.5,0,0];
 //  translate([31, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
 //Parameters
-wallthickness = 1.75;
+wallthickness = 1.95;
 topthickness = 2.5;
-stepsize = 30;  //resolution of Trajectory
-step = 4;       //resolution of ellipes 
+stepsize = 50;  //resolution of Trajectory
+step = 6;       //resolution of ellipes 
 fn = 32;          //resolution of Rounded Rectangles: 60 for output
-layers = 30;    //resolution of vertical Sweep: 50 for output
+layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
 slop    = 0.3;
@@ -39,7 +39,8 @@ stemWid = 7.2;
 stemLen = 5.5;
 stemCrossHeight = 4;
 extra_vertical = 0.6;
-stemLayers = 50; //resolution of stem to cap top transition
+StemBrimDep    = 0.75; 
+stemLayers     = 50; //resolution of stem to cap top transition
 
 dishLayers = 30;
 
@@ -47,19 +48,19 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column 0
-    [17.16,  17.16*1.5, 6, 	   6,   14,    0,    0,   -13,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R5 0
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,    10,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,  7+4,    0,    0,    -2,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,   -10,   -10,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //R2
+    [17.16,  17.16,   5.5, 	 5.5, 7.8+3,    0,    0,     9,     0,    -0,   2,   2,      1,  3.999,      1,      5,     2,       2], //R4 
+    [17.16,  17.16,   5.5, 	 5.5,   7+3,    0,    0,    -3,     0,    -0,   2,   2,      1,  3.399,      1,      5,     2,       2], //R3
+    [17.16,  17.16,   5.5, 	 5.5, 8.5+3,    0,    0,    -8,     0,    -0,   2,   2,      1,  3.399,      1,      5,     2,       2], //R2 Home
+    [17.16,  17.16,   5.5, 	 5.5,11.5+3,    0,    0,   -14,     0,    -0,   2,   2,      1,  3.399,      1,      5,     2,       2], //R1
 //Column 1
-    [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,     5,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 4
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,7+2.5,    0,    0,    -2,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -12,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
+    [17.16,  17.16,     6, 	   6,   12,    0,    0,    -5,     0,     0,   2,   2,      1,   3.399,     1,      5,     2,       2], //R5 1u
+    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 1.258
+    [17.16,  17.16,   6.5, 	 6.5,7+2.5,    0,    0,    -2,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 1.58
+    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -12,    -3,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 Concave 1u
 //Column 2 middle
     [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      3,     2,       2], //R5 8
     [17.16,  17.16,   6.5, 	 6.5,  7.1,    0,    0,     0,     0,     0,   2,   2,      1,   4.85,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,    7,    0,    0,    -2,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
+    [17.16,  17.16,   6.5, 	 6.5,    7,    0,    0,    -2,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 RPA low pro
     [17.16,  17.16,   6.5, 	 6.5,    8,    0,    0,   -12,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
 //Column 3
     [17.16,  17.16,     6, 	   6, 11+3,    0,    0,    13,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 12
@@ -101,10 +102,10 @@ dishParameters = //dishParameter[keyID][ParameterID]
 [ 
 // EdOf    fn   LEx   WEx  DshDep     Ch0i, ch1i, Ch0f, Ch1f, DishExp
   //Column 0
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R2
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R3
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R4
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R5
+  [   1,  .005,    3,    3,    2.0,  3.399,    5, .001, .001, 1.5], //R4
+  [   1,  .005,    3,    3,    2.0,  3.399,    5, .001, .001, 1.5], //R3
+  [   1,  .005,    3,    3,    2.0,  3.399,    5, .001, .001, 1.5], //R2
+  [   1,  .005,    3,    3,    2.0,  3.399,    5, .001, .001, 1.5], //R1
   //Column 1
   [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R2
   [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R3
@@ -219,7 +220,7 @@ function StemTranslation(t, keyID) =
   [
     ((1-t)/stemLayers*TopWidShift(keyID)),   //X shift
     ((1-t)/stemLayers*TopLenShift(keyID)),   //Y shift
-    stemCrossHeight+.1 + (t/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1))    //Z shift
+    stemCrossHeight+.1+StemBrimDep + (t/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1 -StemBrimDep))    //Z shift
   ];
 
 function StemRotation(t, keyID) =
@@ -231,8 +232,8 @@ function StemRotation(t, keyID) =
 
 function StemTransform(t, keyID) =
   [
-    pow(t/stemLayers, StemExponent(keyID))*(BottomWidth(keyID) -TopWidthDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemWid - 2*slop),
-    pow(t/stemLayers, StemExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemLen - 2*slop)
+    pow(t/stemLayers, StemExponent(keyID))*(BottomWidth(keyID) -TopWidthDiff(keyID)-wallthickness) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemWid - 2*slop),
+    pow(t/stemLayers, StemExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemLen - 2*slop)
   ];
   
 function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))*1;
@@ -266,7 +267,7 @@ function DishRoundness(t, keyID) =
   ];
 
 ///----- KEY Builder Module
-module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false, Dish = true, Stem = false, homeDot = false, Stab = false) {
+module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false, Dish = true, Stem = false, homeDot = false, Stab = false, Stab = 0) {
   
 //  //Set Parameters for dish shape
 //  FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
@@ -291,7 +292,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
         }
       }
       if(Stem == true){
-        rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop); // generate mx cherry stem, not compatible with box
+        translate([0,0,StemBrimDep])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID)-StemBrimDep-1, slop); // 
         if (Stab != 0){
           translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
           translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
@@ -364,16 +365,29 @@ module inside_cherry_cross(slop) {
 }
 
 module cherry_stem(depth, slop) {
+  D1=.15;
+  D2=.05;
+  H1=3.5;
+  CrossDist = 1.75;
   difference(){
     // outside shape
-    linear_extrude(height = depth-topthickness/2) {
+    linear_extrude(height = depth) {
       offset(r=1){
         square(outer_cherry_stem(slop) - [2,2], center=true);
       }
     }
     inside_cherry_cross(slop);
+    hull(){
+      translate([CrossDist,CrossDist-.1,0])cylinder(d1=D1, d2=D2, H1);
+      translate([-CrossDist,-CrossDist+.1,0])cylinder(d1=D1, d2=D2, H1);
+    }
+    hull(){
+      translate([-CrossDist,CrossDist-.1])cylinder(d1=D1, d2=D2, H1);
+      translate([CrossDist,-CrossDist+.1])cylinder(d1=D1, d2=D2, H1);
+    }
   }
 }
+
 
 /// ----- helper functions 
 function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [
