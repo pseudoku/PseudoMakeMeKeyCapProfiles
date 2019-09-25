@@ -12,8 +12,7 @@ Version 2: Eliptical Rectangle
 */
 //#square([18.16, 18.16], center = true);
 
-//TODO add shift 
-mirror([1,0,0])keycap(keyID = 33, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+mirror([1,0,0])keycap(keyID = 10, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 //n translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
@@ -30,12 +29,14 @@ RowHome = [0,2.5,5,2.5,0,0];
 //  translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 //  translate([26, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
-////kyria Thumb
-//  translate([-39, 0, 0])rotate([0,0,30])translate([0,-19.5, 0])keycap(keyID = 24, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([-39, 0, 0])rotate([0,0,30])translate([0, -1, 0])keycap(keyID = 25, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([-17, 0, 0])rotate([0,0,30])translate([0,  0, 0])keycap(keyID = 26, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 27, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([26, 2.2, 0])rotate([0,0,0])keycap(keyID = 28, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+//kyria Thumb
+// translate([-39, 0, 0])rotate([0,0,30])translate([0,-19.5, 0])keycap(keyID = 24, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+// translate([-39, 0, 0])rotate([0,0,30])translate([0, -1, 0])keycap(keyID = 25, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+////  translate([-17, 0, 0])rotate([0,0,30])translate([0,  0, 0])keycap(keyID = 26, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+// translate([-17, 0, 0])rotate([0,0,30])translate([0,-8.5, 0])keycap(keyID = 27, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+// translate([-17, 0, 0])rotate([0,0,30])translate([0, 10, 0])keycap(keyID = 28, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+// translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 29, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
+// translate([26, 2.2, 0])rotate([0,0,0])keycap(keyID = 30, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
 //normie hipro
 //  for(Row = [0:4]){
@@ -48,8 +49,8 @@ RowHome = [0,2.5,5,2.5,0,0];
 wallthickness = 2;   
 topthickness  = 3;   //
 stepsize      = 50;  //resolution of Trajectory
-step          = 1;   //resolution of ellipes 
-fn            = 64;  //resolution of Rounded Rectangles: 60 for output
+step          = 6;   //resolution of ellipes 
+fn            = 32;  //resolution of Rounded Rectangles: 60 for output
 layers        = 40;  //resolution of vertical Sweep: 50 for output
 dotRadius     = 1.25;   //home dot size
 //---Stem param
@@ -99,6 +100,8 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [17.16,  17.16,     6, 	   5,    9,   -1,    0,    -8,     5,    -5,   2,   2,      1,      5,      1,      3,     2,       2], //T0R1
     [17.16,  17.16,     6, 	   5,   11,    0,    0,    -8,     0,    -5,   2,   2,      1,      5,      1,    3.5,     2,       2], //T0R2
     [17.16,  17.16*2,   6, 	   7,   11,    0,    0,    -8,    10,    -5,   2,   2,      1,   4.85,      1,    3.5,     2,       2], //T1R1 2u
+    [17.16,  17.16,     6, 	   5,   11,    0,    0,    -9,     7,    10,   2,   2,      1,      5,      1,      3,     2,       2], //T1R1 1u
+    [17.16,  17.16,     6, 	   5,   13,  -.5,    0,    -9,     7,     5,   2,   2,      1,      5,      1,    3.5,     2,       2], //T1R2 1u
     [17.16,  17.16,     4, 	   5,   12,    0,    0,   -13,     5,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //T2R1 
     [17.16,  17.16,     4, 	   6,   13,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      2,     2,       2], //T3R1 
 //normie hipro
@@ -144,8 +147,10 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [   6,    3,   18,  -50,      5,    1.8,   9.6,    15,     2,        6,    4,   13,  -30,    9.6,    16,     2], //R2 
   
   [   5,  4.4,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,    2,  -30,   10.5,    18,     2], //T0R1
-  [   5,  4.3,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,    2,  -30,   10.5,    18,     2],//T0R2
+  [   5,  4.3,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,    2,  -30,   10.5,    18,     2], //T0R2
   [  13,  4.5,    7,  -39,      4,    1.8,   9.5,    15,     2,       13,    4,    8,  -30,    9.5,    20,     2], //T1R1 2u
+  [   5,  4.4,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,    2,  -30,   10.5,    18,     2], //T1R1 1u
+  [   5,  4.3,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,    2,  -30,   10.5,    18,     2], //T1R2 1u
   [   5,  4.4,    5,  -48,      5,      2,  10.5,    10,     2,        6,    4,   13,  -30,   10.5,    18,     2], //T2R1 
   [   5,  4.4,    5,  -48,      4,    1.9,    11,    12,     2,        6,    4,   13,  -35,     11,    28,     2], //T3R1 
   

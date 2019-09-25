@@ -11,14 +11,14 @@ use <skin.scad>
 /*Tester */
 
 difference(){
-  keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+  keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //  translate([8.5,8, 9])sphere(d=12);
 }
-translate([0,16, 0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-translate([17,0, 0])mirror([1,0,0])keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-translate([17,16, 0])mirror([1,0,0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//translate([0,16, 0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//
+//translate([17,0, 0])mirror([1,0,0])keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//
+//translate([17,16, 0])mirror([1,0,0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 //Levee Additional Dist
 

@@ -11,7 +11,7 @@ use <skin.scad>
 /*Tester */
 
 
-translate([0, 17, 0])rotate([0,0,0])mirror([1,0,0])keycap(keyID = 0, cutLen = -6, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+translate([0, 17, 0])rotate([0,0,0])mirror([1,0,0])keycap(keyID = 0, cutLen = 0, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 //translate([-3, 0, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID = 0, cutLen = 7, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //translate([3, 0, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID =  0, cutLen = -7, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
