@@ -1,5 +1,6 @@
-use <scad-utils/morphology.scad> //for cheaper minwoski 
+//use <scad-utils/morphology.scad> //for cheaper minwoski 
 use <scad-utils/transformations.scad>
+use <scad-utils/lists.scad>
 use <scad-utils/shapes.scad>
 use <scad-utils/trajectory.scad>
 use <scad-utils/trajectory_path.scad>
@@ -8,12 +9,36 @@ use <skin.scad>
 
 /*DES (Distorted Elliptical Saddle) Sculpted Profile for 6x3 and corne thumb 
 Version 2: Eliptical Rectangle
+version 3: fine tune shapes
 
+TODOs: 
+ 1. cylinderical stem and transform to top surface
+ 2. modify inner cut to have two thickness parameters
+ 3. fragile things? cuts from knobs
 */
 //#square([18.16, 18.16], center = true);
+capID = 1;
 
-mirror([1,0,0])keycap(keyID = 30, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
+//#difference(){
+//  translate([0,0,(KeyHeight(capID)+5)/2+.08])cube([30, 30, KeyHeight(capID)+5],center = true );
+//  
+//    
+//  
+//  translate([11,11,0])cylinder(d=4,20, center = true);
+//  translate(-[11,11,0])cylinder(d=4,20, center = true);
+//  translate([-11,11,0])cylinder(d=4,20, center = true);
+//}
+#mirror([1,0,0])keycap(keyID = capID, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+union(){
+  translate([0,0,0])mirror([1,0,0])keycap(keyID = capID, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);  
+  
+  translate([0,0,-(5)/2+.08])cube([30, 30, 5],center = true );
+  
+  translate([11,11,0])cylinder(d=4,10, center = false);
+  translate(-[11,11,0])cylinder(d=4,10, center = false);
+  translate([-11,11,0])cylinder(d=4,10, center = false);
+}
 //n translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
 // translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
 RowHome = [0,2.5,5,2.5,0,0];
@@ -54,7 +79,7 @@ fn            = 64;  //resolution of Rounded Rectangles: 60 for output
 layers        = 40;  //resolution of vertical Sweep: 50 for output
 dotRadius     = 1.25;   //home dot size
 //---Stem param
-slop    = 0.25;
+slop    = 0.3;
 stemRot = 0;
 stemWid = 7.2;
 stemLen = 5.5;
@@ -62,7 +87,9 @@ stemCrossHeight = 4;
 extra_vertical  = 0.6;
 StemBrimDep     = 0.75; 
 stemLayers      = 50; //resolution of stem to cap top transition
-
+Dcyl       = 5.5;
+draftAngle = 1; //degree  note:Stem Only
+stemsupportLimit = 8.5;
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
@@ -270,8 +297,8 @@ function CapRadius(t, keyID) = pow(t/layers, ChamExponent(keyID))*ChamfFinRad(ke
 
 function InnerTransform(t, keyID) = 
   [
-    pow(t/layers, WidExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/layers, WidExponent(keyID)))*(BottomWidth(keyID) -wallthickness*2),
-    pow(t/layers, LenExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/layers, LenExponent(keyID)))*(BottomLength(keyID)-wallthickness*2)
+    pow(t/layers, WidExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/layers, WidExponent(keyID)))*(BottomWidth(keyID) -wallthickness*2+1.25),
+    pow(t/layers, LenExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/layers, LenExponent(keyID)))*(BottomLength(keyID)-wallthickness*2+1.25)
   ];
   
 function StemTranslation(t, keyID) =
@@ -290,12 +317,14 @@ function StemRotation(t, keyID) =
 
 function StemTransform(t, keyID) =
   [
-    pow(t/stemLayers, StemExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)-wallthickness) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemWid - 2*slop),
-    pow(t/stemLayers, StemExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemLen - 2*slop)
+    pow(t/stemLayers, WidExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, WidExponent(keyID)))*(Dcyl+sin(draftAngle)*(stemCrossHeight+.1+StemBrimDep)),
+    pow(t/stemLayers, LenExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, LenExponent(keyID)))*(Dcyl+sin(draftAngle)*(stemCrossHeight+.1+StemBrimDep))
   ];
-  
-function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))*1;
-  //Stem Exponent 
+function StemRoundness(t, keyID) = 
+  [
+    pow(t/stemLayers, ChamExponent(keyID))*(CapRound0f(keyID)) + (1-pow(t/stemLayers, ChamExponent(keyID)))*Dcyl+sin(draftAngle)*(stemCrossHeight+.1+StemBrimDep),
+    pow(t/stemLayers, ChamExponent(keyID))*(CapRound1f(keyID)) + (1-pow(t/stemLayers, ChamExponent(keyID)))*Dcyl+sin(draftAngle)*(stemCrossHeight+.1+StemBrimDep)
+  ];
 
 
 ///----- KEY Builder Module
@@ -313,37 +342,12 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
   BackCurve  = [ for(i=[0:len(BackPath)-1])  transform(BackPath[i],  DishShape(DishDepth(keyID),  BackDishArc(i), 1, d = 0)) ];
   
   //builds
-  difference(){
-    union(){
-      difference(){
-        skin([for (i=[0:layers-1]) transform(translation(CapTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(CapTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]); //outer shell
-        
-        //Cut inner shell
-        if(Stem == true){ 
-          translate([0,0,-.001])skin([for (i=[0:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(InnerTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]);
-        }
-      }
-      if(Stem == true){
-        translate([0,0,StemBrimDep])cherry_stem(KeyHeight(keyID)-StemBrimDep, slop); // generate mx cherry stem, not compatible with box
-        if (Stab != 0){
-          translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
-          translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
-          //TODO add binding support?
-        }
-        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //Transition Support for taller profile
-      }
-    //cut for fonts and extra pattern for light?
-    }
-    
-    //Cuts
-    
-    //Fonts
-    if(Legends ==  true){
-          #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-1,-5,KeyHeight(keyID)-2.5])linear_extrude(height = 1)text( text = "ver2", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
-      //  #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,-3.5,0])linear_extrude(height = 0.5)text( text = "Me", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
-      }
-   //Dish Shape 
-    if(Dish == true){
+  if(Stem == false){
+    difference(){
+      skin([for (i=[0:layers-1]) transform(translation(CapTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(CapTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]); //outer shell
+     
+     //cuts
+        if(Dish == true){
      if(visualizeDish == false){
       translate([-TopWidShift(keyID),.00001-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
       translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(BackCurve);
@@ -358,6 +362,23 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
   }
   //Homing dot
   if(homeDot == true)translate([0,0,KeyHeight(keyID)-DishHeightDif(keyID)-.25])sphere(d = dotRadius);
+  }
+     
+  else {
+    difference(){
+      union(){
+        translate([0,0,-.001])skin([for (i=[0:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(InnerTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]);
+        
+        hull(){// cherry top housing
+          translate([0,0,-.0])cube([14.5, 14, .1],center = true);
+          translate([0,0,5.])cube([11,11, .1],center = true);
+        }
+      } 
+      translate([0,0,StemBrimDep])cherry_stem(KeyHeight(keyID)-StemBrimDep, slop); // generate mx cherry stem
+      if(KeyHeight(keyID) > stemsupportLimit)
+        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), elliptical_rectangle(StemTransform(i, keyID), b = StemRoundness(i,keyID),fn=fn))]);
+    }
+  }
 }
 
 //------------------stems 
@@ -387,8 +408,8 @@ module inside_cherry_cross(slop) {
   // Guides to assist insertion and mitigate first layer squishing
   {
     for (i = cherry_cross(slop, extra_vertical)) hull() {
-      linear_extrude(height = 0.01, center = false) offset(delta = 0.4) square(i, center=true);
-      translate([0, 0, 0.5]) linear_extrude(height = 0.01, center = false)  square(i, center=true);
+      linear_extrude(height = 0.01, center = false) offset(delta = 0.15) square(i, center=true);
+      translate([0, 0, 0.15]) linear_extrude(height = 0.01, center = false)  square(i, center=true);
     }
   }
 }
@@ -398,22 +419,24 @@ module cherry_stem(depth, slop) {
   D2=.05;
   H1=3.5;
   CrossDist = 1.75;
+
   difference(){
     // outside shape
-    linear_extrude(height = depth) {
-      offset(r=1){
-        square(outer_cherry_stem(slop) - [2,2], center=true);
-      }
-    }
+//    linear_extrude(height = depth) {
+//      offset(r=1){
+//        square(outer_cherry_stem(slop) - [2,2], center=true);
+//      }
+//    }
+    cylinder(d1 = Dcyl, d2= Dcyl+sin(draftAngle)*depth, depth);
     rotate([0,0,stemRot])inside_cherry_cross(slop);
-    hull(){
-      translate([CrossDist,CrossDist-.1,0])cylinder(d1=D1, d2=D2, H1);
-      translate([-CrossDist,-CrossDist+.1,0])cylinder(d1=D1, d2=D2, H1);
-    }
-    hull(){
-      translate([-CrossDist,CrossDist-.1])cylinder(d1=D1, d2=D2, H1);
-      translate([CrossDist,-CrossDist+.1])cylinder(d1=D1, d2=D2, H1);
-    }
+//    hull(){
+//      translate([CrossDist,CrossDist-.1,0])cylinder(d1=D1, d2=D2, H1);
+//      translate([-CrossDist,-CrossDist+.1,0])cylinder(d1=D1, d2=D2, H1);
+//    }
+//    hull(){
+//      translate([-CrossDist,CrossDist-.1])cylinder(d1=D1, d2=D2, H1);
+//      translate([CrossDist,-CrossDist+.1])cylinder(d1=D1, d2=D2, H1);
+//    }
   }
 }
 
@@ -475,3 +498,4 @@ function sign_y(i,n) =
 	i > 0 && i < n/2  ?  1 :
 	i > n/2 ? -1 :
 	0;
+
