@@ -13,7 +13,7 @@ Version 2: Eliptical Rectangle
 //#square([18.16, 18.16], center = true);
 
 //TODO add shift 
-mirror([0,0,0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
+mirror([0,0,0])keycap(keyID = 1, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
 //#translate([0,0,0])cube([14.5, 13.5, 10], center = true); // internal check
 //#translate([0,0,0])cube([17.5, 16.5, 10], center = true); // external check
 
@@ -28,22 +28,7 @@ RowHome = [0,2.5,5,2.5,0,0];
 //  } 
 //}
 
-//////corne thumb
-//  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 4, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([26, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
-////kyria Thumb
-//  translate([-39, 0, 0])rotate([0,0,30])translate([0,-19.5, 0])keycap(keyID = 24, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([-39, 0, 0])rotate([0,0,30])translate([0, -1, 0])keycap(keyID = 25, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([-17, 0, 0])rotate([0,0,30])translate([0,  0, 0])keycap(keyID = 26, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([6, 0, 0])rotate([0,0,15])keycap(keyID = 27, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-//  translate([26, 2.2, 0])rotate([0,0,0])keycap(keyID = 28, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
-
-//normie hipro
-//  for(Row = [0:4]){
-//  translate([0, 19*Row, 0])keycap(keyID = 29+Row, cutLen = 0, Stem = false,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
-//  } 
 
 //#translate([0,38,13])cube([18-5.7, 18-5.7,1],center = true);
 
@@ -52,38 +37,43 @@ wallthickness = 1.2;
 topthickness  = 3;   //
 stepsize      = 50;  //resolution of Trajectory
 step          = 1;   //resolution of ellipes 
-fn            = 64;  //resolution of Rounded Rectangles: 60 for output
+fn            = 32;  //resolution of Rounded Rectangles: 60 for output
 layers        = 40;  //resolution of vertical Sweep: 50 for output
 dotRadius     = 1.25;   //home dot size
 //---Stem param
 slop    = 0.25;
 stemRot = 0;
-stemWid = 7.2;
-stemLen = 5.5;
+stemWid = 8;
+stemLen = 6;
 stemCrossHeight = 1.8;
 extra_vertical  = 0.6;
 StemBrimDep     = 0; 
 stemLayers      = 50; //resolution of stem to cap top transition
+driftAngle      = 0;
 
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //normie hipro
-    [17.16,  17.16,   6.5, 	 6.5,   11,    0,    0,   -10,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5
-    [17.16*2,  17.16,   6.5, 	 6.5,   11,    0,    0,   -10,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 2u
-    [16.80,  15.80,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2],
-    [16.80,  15.80,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2],
-    [17.16,  17.16,   6.5, 	 6.5, 14.0,    0,    0,   -14,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R1
+    [17.16, 17.16,   6.5, 	 6.5,   5.5,    0,    0,  -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 1u
+    [35.96, 17.16,   6.5, 	 6.5,   5.5,    0,    0,  -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 2u ver 1
+    [35.96, 17.16,   6.5, 	 6.5,   5.5,    0,    0,  -0,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4 2u ver 1
+    [35.96, 17.16,   6.5, 	 6.5,   5.5,    0,    0,  -5,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 2u ver 1
+    [16.90, 15.80,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2],
+    [16.80, 15.80,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2],
+    [17.16, 17.16,   6.5, 	 6.5, 14.0,    0,    0,   -14,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R1
 ];
 
 dishParameters = //dishParameter[keyID][ParameterID]
 [ 
 //FFwd1 FFwd2 FPit1 FPit2  DshDepi DishDepf,DshHDif FArcIn FArcFn FArcEx     BFwd1 BFwd2 BPit1 BPit2  BArcIn BArcFn BArcEx
-  [   3,    3,  -10,  -50,      3,      7,   8.2,     9,     2,        5,    3,    0,  -30,    8.2,     9,     2], //R5
-  [   3,    3,  -10,  -50,      3,      7,  18.2,    21,     2,        5,    3,    0,  -30,   18.2,    21,     2], //R4
-  [ 4.,  1.5,    8,  -55,      3,      7,   9.0,     9,     2,        4,    3,    3,  -50,    9,     9,     2],  //R3
-  [ 4.,  1.5,    -0,  -50,      3,      7,   9.0,     9,     2,        4,    3,    -10,  -50,    9,     9,     2],  //R3
-  [   5,  3.5,    8,  -50,      5,    1.8,   8.8,    15,     2,        6,    4,   13,   30,    8.8,    16,     2], //R1
+  [   4,  4.2,   -5,  -20,    1.5,   3.25,   8.2,     9,     2,       5,    3,   -5,  -20,    8.2,     9,     2], //R5 2u
+  [   4,  4.2,   -5,  -20,      2,   4.25,  18.2,    21,     2,       5,    3,   -5,  -20,   18.2,    21,     2], //R5 2u
+  [   4,  4.2,   -5,  -15,      1,      3,  18.2,    21,     2,       4,  4.2,   -5,  -15,   18.2,    21,     2], //R4 2u
+  [   4,  4.2,   -5,  -15,      1,      3,  18.2,    21,     2,       5,    3,   -5,  -15,   18.2,    21,     2], //R3 2u
+  [  4.,  1.5,    8,  -55,      3,      7,   9.0,     9,     2,       4,    3,    3,  -50,    9,     9,     2],  //R3
+  [  4.,  1.5,   -0,  -50,      3,      7,   9.0,     9,     2,       4,    3,    -10,  -50,    9,     9,     2],  //R3
+  [   5,  3.5,    8,  -50,      5,    1.8,   8.8,    15,     2,       6,    4,   13,   30,    8.8,    16,     2], //R1
 ];
  
 function FrontForward1(keyID) = dishParameters[keyID][0];  //
@@ -338,19 +328,23 @@ module cherry_stem(depth, slop) {
   }
 }
 
-module choc_stem() {
+module choc_stem(draftAng = 2) {
+  stemHeinght = 3.1;
   
-    translate([5.7/2,0,-3.4/2+2])difference(){
-    cube([1.25,3, 3.4], center= true);
-    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
-    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
+  module Stem() {
+    difference(){
+      hull(){
+        translate([0,0,-stemHeinght/2])cube([1.25-sin(draftAng)*stemHeinght,3-sin(draftAng)*stemHeinght,.001], center= true);
+        translate([0,0,stemHeinght/2])cube([1.25,3,.001], center= true);
+      }
+      //cuts
+      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeinght, d2=7,3.5, center = true);
+      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeinght,d2=7,3.5, center = true);
+    }
   }
-  translate([-5.7/2,0,-3.4/2+2])difference(){
-    cube([1.25,3, 3.4], center= true);
-    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
-    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
-  }
-  
+
+  translate([5.7/2,0,-stemHeinght/2+2])Stem();
+  translate([-5.7/2,0,-stemHeinght/2+2])Stem();
 }
 /// ----- helper functions 
 function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [

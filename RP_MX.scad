@@ -6,19 +6,22 @@ use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
 use <skin.scad>  
 
-//DP (Distored Pyramidal) [Double Penetration] Profile  
+//DP (Distored Pyramidal) [Double Penetration] Profile for neuron sets
 
 //TODO add shift 
-//translate([0, 0, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
+//#square([22.5, 19.05], center = true);
+translate([0, 0, 0])keycap(keyID = 4, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
 ////fullsetee
-RowHome = [0,2.5,5,2.5,0,0];
-
-rotate([0,0,0])
-for(Col = [1:1]){ 
-  for(Row = [0:2]){
-  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = true, crossSection = false);
-  }
-}
+//RowHome = [0,0,5,2.5,0,0];
+//rotate([0,0,0])
+//for(Col = [0:0]){ 
+//  for(Row = [1:3]){
+//    translate([19*Col, 19*Row +RowHome[Col], 0]){
+//      keycap(keyID = Col*4+Row, cutLen = 0, Stem = true,  Dish = true, visualizeDish = true, crossSection = true);
+//      #translate([0, 0, StemBrimDep])cylinder(d=3,7);
+//    }
+//  }
+//}
 
 ////// thumb
 //  translate([-15, -4, 0])rotate([0,0,30])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
@@ -26,7 +29,7 @@ for(Col = [1:1]){
 //  translate([31, 2.2, 0])rotate([0,0,0])keycap(keyID = 8, cutLen = 0, Stem =false,  Dish = true, visualizeDish = false, crossSection = false);
 
 //Parameters
-wallthickness = 1.95;
+wallthickness = 1.25;
 topthickness = 2.5;
 stepsize = 50;  //resolution of Trajectory
 step = 6;       //resolution of ellipes 
@@ -34,50 +37,40 @@ fn = 32;          //resolution of Rounded Rectangles: 60 for output
 layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
-slop    = 0.3;
+slop    = 0.4;
 stemRot = 0;
 stemWid = 7.2;
 stemLen = 5.5;
-stemCrossHeight = 4;
+stemCrossHeight = 7;
 extra_vertical = 0.6;
 StemBrimDep    = 0.75; 
-stemLayers     = 50; //resolution of stem to cap top transition
-proHeight      = 1;
-dishLayers = 30;
+stemLayers     = 20; //resolution of stem to cap top transition
+proHeight      = 3.5;
+dishLayers     = 30;
 
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
-//4 rows 
-    [17.16,  17.16,   8.0, 	 5.5, 8.5+proHeight,    0,    0,    10,     0,    -0,   2,   2,      1,  3.999,      1,      5,     2,       2], //R4 
-    [17.96,  17.96,   8.0, 	 8.0,   7+proHeight,    0,    0,    -3,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3
-    [17.96,  17.96,   8.0, 	 8.0, 8.5+proHeight,    0,    0,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R2 Home
-    [17.96,  17.96,   8.4, 	 8.4,11.5+proHeight,    0,    0,   -15,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R1
-//3 rows 
-    [17.16,  17.16,   8.0, 	 5.5, 8.5+proHeight,    0,    0,    12,     0,    -0,   2,   2,      1,  3.999,      1,      5,     2,       2], //R4 
-    [17.96,  17.96,   8.0, 	 8.0,   7+proHeight,    0,   .5,    -5,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3
-    [17.96,  17.96,   8.0, 	 8.0, 9.0+proHeight,    0,   .5,   -15,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R2 Home
-    [17.96,  17.96,   8.4, 	 8.4,11.5+proHeight,    0,    0,   -15,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //
-//Column 2 middle
-    [17.16,  17.16,     6, 	   6,   13,    0,    0,   -13,    10,    15,   2,   2,      1,      5,      1,      3,     2,       2], //R5 8
-    [17.16,  17.16,   6.5, 	 6.5,  7.1,    0,    0,     0,     0,     0,   2,   2,      1,   4.85,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,    7,    0,    0,    -2,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 RPA low pro
-    [17.16,  17.16,   6.5, 	 6.5,    8,    0,    0,   -12,     0,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
-//Column 3
-    [17.16,  17.16,     6, 	   6, 11+3,    0,    0,    13,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 12
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,     5,    -4,     0,   2,   2,      1,      5,      1,      5,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,  7+3,    0,    0,    -2,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+3,    0,    0,   -10,    -4,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
-//Column 4
-    [17.16,  17.16,     6, 	   6,11+5.5,   0,    0,    13,   -10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 16
-    [17.16,  17.16,   6.5, 	 6.5,8+5.5,    0,    0,     5,   -10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,7+5.5,    0,    0,    -5,   -10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,   -12,     5,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
-//Column 5
-    [17.16,  17.16,     6, 	   6, 11+4,    0,    0,    13,    -6,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R5 20
-    [17.16,  17.16,   6.5, 	 6.5,  8+4,    0,    0,     5,    -6,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R4
-    [17.16,  17.16,   6.5, 	 6.5,  7+4,    0,    0,    -2,    -6,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R3 Home
-    [17.16,  17.16,   6.5, 	 6.5,  8+6,    0,    0,   -12,    10,     0,   2,   2,      1,      5,      1,      3,     2,       2], //R2
+//3  heavy sculpt rows setup
+    [17.16,  17.16,   8.0, 	 8.0, 8.5+proHeight,    0,    0,    -5,     0,    -0,   2,   2,      1,  3.999,      1,      5,     2,       2], //R5
+    [17.96,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,    0,    10,     0,    -0,   2,   2,     .1,  3.999,     .1,  3.399,     2,       2], //R4 
+    [17.96,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,   .5,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3
+    [17.96,  17.96,   8.0, 	 8.0,10.8+proHeight,    0,    0,   -16,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R2 
+    [17.96,  17.96,   8.0, 	 8.0, 8.0+proHeight,    0,   .5,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3 home 
+//mods neuron
+    [22.26,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,   .5,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3 1.25
+    [31.06,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,   .5,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3 1.75
+
+    [22.26,  17.96,   8.4, 	 8.4, 7.8+proHeight,    0,    0,    10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R4 1.25
+    [32.06,  17.96,   8.4, 	 8.4, 7.8+proHeight,    0,    0,    10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R4 1.75
+//mods van
+    [32.06,  17.96,   8.4, 	 8.4,10.8+proHeight,    0,    0,   -16,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R2 1.75
+    
+    [22.26,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,   .5,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3 1.25
+    [26.66,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,   .5,   -10,     0,    -0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R3 1.5 
+    
+    [32.06,  17.96,   8.0, 	 8.0, 7.8+proHeight,    0,    0,    10,     0,    -0,   2,   2,     .1,  3.999,     .1,  3.399,     2,       2], //R4 1.75
+
 ];
 
 function BottomWidth(keyID)  = keyParameters[keyID][0];  //
@@ -102,36 +95,26 @@ function StemExponent(keyID) = keyParameters[keyID][17];
 dishParameters = //dishParameter[keyID][ParameterID]
 [ 
 // EdOf    fn   LEx   WEx  DshDep     Ch0i, ch1i, Ch0f, Ch1f, DishExp
-  //4 rows
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R4
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R3
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R2
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R1
   //3rows 
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R4
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R3
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R2
-  [0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R1
-  //Column 1
-  [   1,  .005,    3,    3,    2.0,  3.399,    5, .001, .001, 1.5], //R4
-  [ 0.5,  .005,    2,    2,    2.4,  3.399,3.399, .001, .001, 2.5], //R3
-  [ 0.5,  .005,    2,    2,    2.4,  3.399,3.399, .001, .001, 2.5], //R2
-  [ 0.75,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R1
-  //Column 3
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R2
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R3
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R4
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R5
-  //Column 4
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R2
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R3
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R4
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R5
-  //Column 5
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R2
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R3
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R4
-  [   2,  .005,    2,    2,    1.5,      6,    4, .001, .001,  2], //R5
+  [1.00,  .005,   2, 2,    2.2,  3.399,3.399, .001, .001, 2.0], //R5
+  [1.00,  .005,   2, 2,    2.2,  3.399,3.399, .001, .001, 2.0], //R4
+  [1.00,  .005,   2, 2,    2.2,  3.399,3.399, .001, .001, 2.0], //R3
+  [1.00,  .005,   2, 2,    2.2,  3.399,3.399, .001, .001, 2.0], //R2
+  [1.00,  .005,   2, 2,    2.5,  3.399,3.399, .001, .001, 2.5], //R3 homet
+  
+  //Mods
+  [1.00,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R3
+  [1.00,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R3
+
+  [1.00,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R2
+  [1.00,  .005,   1.5, 1.5,    2.5,  3.399,3.399, .001, .001, 2.5], //R2
+  // Van
+  [1.00,  .005,   2, 2,    2.5,  3.399,3.399, .001, .001, 2.5], //R2
+
+  [1.00,  .005,   2, 2,    2.5,  3.399,3.399, .001, .001, 2.5], //R3
+  [1.00,  .005,   2, 2,    2.5,  3.399,3.399, .001, .001, 2.5], //R3
+
+  [1.00,  .005,   2, 2,    2.5,  3.399,3.399, .001, .001, 2.5], //R4 
 ];
 
 function EdgeOffset(keyID) = dishParameters[keyID][0];  //
@@ -350,7 +333,7 @@ module inside_cherry_cross(slop) {
   // inside cross
   // translation purely for aesthetic purposes, to get rid of that awful lattice
   translate([0,0,-0.005]) {
-    linear_extrude(height = stemCrossHeight) {
+    linear_extrude(height = 4) {
       square(cherry_cross(slop, extra_vertical)[0], center=true);
       square(cherry_cross(slop, extra_vertical)[1], center=true);
     }
@@ -377,7 +360,7 @@ module cherry_stem(depth, slop) {
         square(outer_cherry_stem(slop) - [2,2], center=true);
       }
     }
-    inside_cherry_cross(slop);
+    #inside_cherry_cross(slop);
     hull(){
       translate([CrossDist,CrossDist-.1,0])cylinder(d1=D1, d2=D2, H1);
       translate([-CrossDist,-CrossDist+.1,0])cylinder(d1=D1, d2=D2, H1);

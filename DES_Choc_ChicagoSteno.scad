@@ -5,15 +5,31 @@ use <scad-utils/trajectory.scad>
 use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
 use <skin.scad>  
-
+use <z-butt.scad>
 //DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer with sculpted gergo thumb cluter
-
+//TODO: fine tune levee as the dish is not replicated compared to chicago
 /*Tester */
+//difference(){
+////   #lp_stem_cavity(yu = 2);
+//  #translate([0,-0,-0])cube([16.5,36.5,20], center = true);
+//}
 
 difference(){
-  keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//  translate([8.5,8, 9])sphere(d=12);
+ translate([0,0,-0])keycap(keyID = 27, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 }
+// #lp_master_base();
+
+// for(j=  [0:5])
+// for(i = [0:3])
+// translate([19*j,19*i,0])keycap(keyID = 3, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+
+//for (i = [15:18]) 
+////difference(){
+//
+//,
+//for (i = [19:22]) 
+//  translate([19*1.25,19*(i-19),0])keycap(keyID = i, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+
 //translate([0,16, 0])keycap(keyID = 14, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //
 //translate([17,0, 0])mirror([1,0,0])keycap(keyID = 13, cutLen = -ChocCut, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
@@ -61,20 +77,21 @@ thumbDish = true;
 thumbVis  = false;
 thumbSec  = false;
 ////// thumb
-//  translate([0,0,0])rotate([0,0,30])translate([-19,0,0])keycap(keyID = 3, cutLen = 0, Stem = thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-
-//  translate([0,0,0])rotate([0,0,30])translate([-19,28,0])keycap(keyID = 4, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([0,0,0])rotate([0,0,30])translate([0,0,0])keycap(keyID = 5, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([0,0,0])rotate([0,0,15])translate([26,1.5,0])keycap(keyID = 6, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
-//  translate([0,0,0])rotate([0,0,0])translate([51,12,0])keycap(keyID = 7, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,30])translate([-19,0,0])keycap(keyID = 4, cutLen = 0, Stem = thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//
+//  translate([0,0,0])rotate([0,0,30])translate([-19,28,0])rotate([0,0,180])keycap(keyID = 16, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,30])translate([0,0,0])keycap(keyID = 6, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,30])translate([0,28,0])rotate([0,0,0])keycap(keyID = 5, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,15])translate([25,1.5,0])rotate([0,0,180])keycap(keyID = 24, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
+//  translate([0,0,0])rotate([0,0,0])translate([51,12,0])keycap(keyID = 20, cutLen = 0, Stem =thumbStem ,  Dish = thumbDish, visualizeDish = thumbVis, crossSection = thumbSec,Legends = false);
 
 //-Parameters
 wallthickness = 1.1; // 1.75 for mx size, 1.1
-topthickness = 3; //2 for phat 3 for chicago
+topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
-step = 6;       //resolution of ellipes 
+step = 2;       //resolution of ellipes 
 fn = 32;          //resolution of Rounded Rectangles: 60 for output
-layers = 40;    //resolution of vertical Sweep: 50 for output
+layers = 30;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
 slop    = 0.3;
@@ -98,11 +115,12 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [17.26,  17.26,   4.5, 	   2,  4.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      2,      1,      6,     2,       2], //Phat Fingers 0
     [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2/R4
     [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
+    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 deep
 
     //Gergo Thumb Sculpted 
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,    -7,    -0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R1 2u 3
-    [17.06,  17.06,     7, 	   4,  7.4,    0,   .0,    -6,     4,     0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R2 1u
-    [17.06,  35.16,     7, 	   3,  6.2,    0,    0,    -3,     7,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T1 R2 2u
+    [17.06,  35.96,     7, 	   3,  5.4,    0,    0,    -3,    -7,    -0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R1 2u 3
+    [17.06,  17.06,     7, 	   4,  6.4,    0,   .0,    -6,     0,     0,   2,   2,      1,      2,      1,      4,     2,       2], //Chicago T0 R2 1u
+    [17.06,  35.96,     7, 	   3,  5.4,    0,    0,    -3,     7,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T1 R2 2u
     [17.06*1.50,17.16,  7, 	   5,  6.2,    0,    0,    -2,     4,     5,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T2 R1 1.25
     [17.16*1.25,17.16,  7, 	   5,  6.8,    0,    0,    -2,     3,    -0,   2,   2,      1,      3,      1,      4,     2,       2], //Chicago T3 R1 1.25
     
@@ -113,13 +131,37 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     //Phat Fingers Uniform
     [17.26,  17.26,     2, 	   2,  5,      0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      3,     2,       2], //10
     
-    //Levee: Chicago in choc Dimension 
-    [16.10,  15.10,     7, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2], //Chicago Steno R2/R4
-    [16.10,  15.10,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,    .75,      3,     .75,      4,     2,       2], //Chicago Steno R3 flat
+    //Levee: Chicago in choc Dimension  11~14
+    [16.10,  15.10,     5, 	   4,  5.5,    0,   .0,     5,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2], //Chicago Steno R2/R4
+    [16.10,  15.10,     6, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,    .75,      1,     .75,      4,     2,       2], //Chicago Steno R3 flat
     
     [16.10,  15.10,  4.25, 	3.25,  5.2,  -.8, -0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
-    [16.10,  15.10,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
+    [16.10,  15.10,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R3
     
+    //Chicago 4 rows system  15~18
+    [17.26,  17.26,     7, 	   4,  5.8,    0,   .0,     7,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R1
+    [17.26,  17.26,     7, 	   4,  4.7,    0,   .0,     3,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2    
+    [17.26,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
+    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R4
+    [17.26,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R5
+    //Chicago 4 rows system 1.25 19~22
+    [21.86,  17.26,     7, 	   4,  5.8,    0,   .0,     7,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R1
+    [21.86,  17.26,     7, 	   4,  4.7,    0,   .0,     3,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2    
+    [21.86,  17.26,     7, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
+    [21.86,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R4
+    [21.86,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R5
+    //Chicago 4 rows system 1.5 23~26
+    [26.66,  17.26,     7, 	   4,  5.8,    0,   .0,     7,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R1
+    [26.66,  17.26,     7, 	   4,  4.7,    0,   .0,     3,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2    
+    [26.66,  17.26,     7, 	   4,  4.5,    0,   .0,    .1,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
+    [26.66,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R4
+    [26.66,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R5
+    //Chicago 4 rows system 2.0 27~31
+    [35.96,  17.26,     7, 	   4,  5.8,    0,   .0,     7,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R1
+    [35.96,  17.26,     7, 	   4,  4.7,    0,   .0,     3,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R2    
+    [35.96,  17.26,     7, 	   4,  4.5,    0,   .0,    .1,    -0,    -0,   2,   3,      1,      3,      1,      4,     2,       2], //Chicago Steno R3 flat
+    [35.96,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R4
+    [35.96,  17.26,     7, 	   4,  5.5,    0,   .0,    -5,    -0,    -0,   2,   3,      1,      1,      1,      4,     2,       2], //Chicago Steno R5
 ];
 
 dishParameters = //dishParameter[keyID][ParameterID]
@@ -129,24 +171,47 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [   6,    4,    7,  -50,      5,    1.0,   15,    25,     2,        6,    4,    2,   -35,   15,    19,     2], //Phat Fingers
   [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
   [   6,    4,    5,  -40,      8,    1.8,   11,    15,     2,        6,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
+  [ 5.5,    4,   10,  -40,      8,    1.8,   11,    15,     2,       5.5,    4,   10,   -40,   11,    15,     2], //Chicago Steno R3 deep
   
-  [  14,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,       14,    4,    2,   -35,   12,    15,     2], //Chicago T0 R1 2u 
-  [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago T0 R2 1u
-  [  14,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,       14,    4,    2,   -35,   12,    15,     2], //Chicago T1 R2 2u
+  [14.3,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,     14.3,    4,    2,   -35,   12,    15,     2], //Chicago T0 R1 2u 
+  [   6,    4,    7,  -50,      8,    1.8,   12,    17,     2,        6,    4,    2,   -35,   12,    15,     2], //Chicago T0 R2 1u
+  [14.3,  4.5,    3,  -40,      8,    1.8,   12,    17,     2,     14.3,    4,    2,   -35,   12,    15,     2], //Chicago T1 R2 2u
   [   6,    4,    2,  -35,      8,    1.8,   20,    24,     2,        6,    4,    7,   -45,   20,    23,     2], //Chicago T2 R1 1.25
   [   6,    4,    2,  -35,      8,    1.8,   15,    17,     2,        6,    4,    7,   -45,   15,    15,     2], //Chicago T3 R1 1.25
   //Gergo 1.5 mods 
   [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno mod R2/R4
   [   6,    4,    5,  -40,      8,    1.8,   22,    25,     2,        6,    4,    5,   -40,   22,    25,     2], //Chicago Steno mod R3 flat
-  
+     //Phat Fingers Uniform 
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Phat Uniform
   
+  //Levee: Chicago in choc Dimension 
   [ 4.5,    4,    7,  -50,      8,    1.8,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
   [ 4.5,    4,    5,  -40,      8,    1.8,   11,    15,     2,      4.5,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
   
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
-  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
-  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Secondary Dish 2/eR4
+  [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R3/R3
+  
+  //Chicago 4 rows system 
+  [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago Steno R1
+  [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2
+  [   6,    4,    5,  -40,      8,    1.8,   11,    15,     2,        6,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
+  [   6,    4,    7,  -50,      8,    1.8,   11,    17,     2,        6,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
+  
+  //Chicago 4 rows system 1.25
+  [   6,    4,    7,  -50,      8,    1.8,   16,    25,     2,        6,    4,    2,   -35,   16,    22,     2], //Chicago Steno R1
+  [   6,    4,    7,  -50,      8,    1.8,   16,    25,     2,        6,    4,    2,   -35,   16,    22,     2], //Chicago Steno R2
+  [   6,    4,    5,  -40,      8,    1.8,   16,    25,     2,        6,    4,    5,   -40,   16,    22,     2], //Chicago Steno R3 flat
+  [   6,    4,    7,  -50,      8,    1.8,   16,    25,     2,        6,    4,    2,   -35,   16,    22,     2], //Chicago Steno R2/R4
+  //Chicago 4 rows system 1.5
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno R1
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno R2
+  [   6,    4,    5,  -40,      8,    1.8,   22,    25,     2,        6,    4,    5,   -40,   22,    25,     2], //Chicago Steno R3 flat
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno R2/R4
+  //Chicago 4 rows system 2.0
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno R1
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno R2
+  [   6,    4,    5,  -40,      8,    1.8,   22,    25,     2,        6,    4,    5,   -40,   22,    25,     2], //Chicago Steno R3 flat
+  [   6,    4,    7,  -50,      8,    1.8,   22,    25,     2,        6,    4,    2,   -35,   22,    25,     2], //Chicago Steno R2/R4
 ];
 
 
@@ -269,9 +334,10 @@ function StemTranslation(t, keyID) =
 
 function StemRotation(t, keyID) =
   [
-    ((1-t)/stemLayers*XAngleSkew(keyID)),   //X shift
-    ((1-t)/stemLayers*YAngleSkew(keyID)),   //Y shift
-    ((1-t)/stemLayers*ZAngleSkew(keyID))    //Z shift
+//    ((1-t)/stemLayers*XAngleSkew(keyID)),   //X shift
+//    ((1-t)/stemLayers*YAngleSkew(keyID)),   //Y shift
+//    ((1-t)/stemLayers*ZAngleSkew(keyID))    //Z shift
+0,0,0
   ];
 
 function StemTransform(t, keyID) =
@@ -346,9 +412,10 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
      if(crossSection == true) {
        translate([0,-25,-.1])cube([15,50,15]); 
      }
-  }
-  //Homing dot
+       //Homing dot
   if(homeDot == true)translate([0,0,KeyHeight(keyID)-DishHeightDif(keyID)-.25])sphere(d = 1);
+  }
+
 }
 
 //------------------stems 
@@ -359,11 +426,11 @@ function outer_cherry_stabilizer_stem(slop) = [4.85 - slop * 2, 6.05 - slop * 2]
 function outer_box_cherry_stem(slop) = [6 - slop, 6 - slop];
 
 // .005 purely for aesthetics, to get rid of that ugly crosshatch
-function cherry_cross(slop, extra_vertical = 0) = [
+function stem_cross(slop, extra_vertical = 0) = [
   // horizontal tine
-  [4.03 + slop, 1.15 + slop / 3],
+  [4.0 + slop, 1.0 + slop / 3],
   // vertical tine
-  [1.25 + slop / 3, 4.23 + extra_vertical + slop / 3 + .005],
+  [1.00 + slop / 3, 4.0 + extra_vertical + slop / 3 + .005],
 ];
 module inside_cherry_cross(slop) {
   // inside cross

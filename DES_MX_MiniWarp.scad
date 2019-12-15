@@ -13,22 +13,22 @@ Version 2: Eliptical Rectangle
 
 //Stab = 24 for 
 //TODO add shift 
-mirror([1,0,0])keycap(keyID = 6, cutLen = 8, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//mirror([1,0,0])keycap(keyID = 4, cutLen = 8, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //
 //translate([20,0,0])rotate([-15,0,180])keycap(keyID = 1, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //translate([0,-15,-1])rotate([0,0,0])keycap(keyID = 2, cutLen = 8, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 //translate([20,-15,-1])rotate([0,0,0])keycap(keyID = 3, cutLen = 8, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
-//translate([0,0,0])rotate([-15,0,180])keycap(keyID = 4, cutLen = 10, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([0,-18.05*1.12,0])rotate([-15,0,0])keycap(keyID = 5, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([0,-18.05*2.10,10.2])rotate([-45,0,0])keycap(keyID = 6, cutLen = 10, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+translate([0,0,0])rotate([-15,0,180])keycap(keyID = 4, cutLen = 8, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+translate([0,-18.05*1.12,0])rotate([-15,0,0])keycap(keyID = 5, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+translate([0,-18.05*2.10,10.2])rotate([-45,0,0])keycap(keyID = 6, cutLen = 8, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 //Parameters
 wallthickness = 2;
 topthickness = 3; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
-step = 1;       //resolution of ellipes 
-fn = 64;          //resolution of Rounded Rectangles: 60 for output
+step = 2;       //resolution of ellipes 
+fn = 32;          //resolution of Rounded Rectangles: 60 for output
 layers = 40;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
