@@ -1,8 +1,10 @@
   use <z-butt.scad>
 
 //lp_master_base(xu = 1, yu = 1);
- shiftx = 5.1;
+ shiftx = 0;//5.1;
  rot    = 0;
+ 
+ translate([-10,4,0])cube([20,10,10]);
 //translate([0,0,20])lp_stem_cavity(xu = 2, yu = 1);
 //difference(){
 //  
@@ -51,7 +53,7 @@
 //  
   difference(){
   
-  mx_stem_cavity(xu = 1.5, yu = 1);
+  mx_stem_cavity(xu = 1, yu = 1);
 //  translate([0,4,5.5])mirror([1,0,0])text( text = "pqp", font ="Wingdings3:style=Regular", size = 2, valign = "center", halign = "center" );
   #rotate([0,0,rot]){
     translate([3.5+shiftx,-3.65,5.45])hull(){

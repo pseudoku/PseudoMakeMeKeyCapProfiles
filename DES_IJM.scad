@@ -31,15 +31,15 @@ TODOs:
 //#mirror([0,0,0])translate([0,0,1.95])keycap(keyID = capID, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
 
 //bottom cast param 
-capID = 39;
+capID = 1;
 
 difference(){
-mx_stem_cavity(name = "custom", xu=2, yu=1., sz = 10)translate([0,0,-.75])mirror([1,0,0])keycap(keyID = capID, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);  
+mx_stem_cavity(name = "custom", xu=1, yu=1., sz = 10)translate([0,0,-.75])mirror([1,0,0])keycap(keyID = capID, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);  
   
 //   translate([0,-30,-25]) cube([60,60,50]); // cut check
 }
 
-#translate([0,-0,-1])  keycap(keyID = capID, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false); 
+//#translate([0,-0,-1])  keycap(keyID = capID, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false); 
 
 //Parameters
 wallthickness = 2;   
