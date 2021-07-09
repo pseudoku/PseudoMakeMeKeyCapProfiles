@@ -1,56 +1,42 @@
-use <scad-utils/morphology.scad> //for cheaper minwoski 
+ use <scad-utils/morphology.scad> //for cheaper minwoski 
 use <scad-utils/transformations.scad>
 use <scad-utils/shapes.scad>
 use <scad-utils/trajectory.scad>
 use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
 use <skin.scad>  
-// R3 1.25=5 1.75 13
-// R4 1.25=6 1.75 14
-// R5 1.50=8 2.25=20, 2.75=24
+//use <z-butt.scad>
+
 /*DES (Distorted Elliptical Saddle) Sculpted Profile for 6x3 and corne thumb 
 Version 2: Eliptical Rectangle
 
 */
-//#square([18.16, 18.16], center = true);
-//#square([41.3, 19.05], center = true);
-
-mirror([0,0,0])rotate([22.94,0,0])keycap(keyID = 24, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//mirror([0,0,0])translate([19*2.5,0,0])keycap(keyID = 24, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//mirror([0,0,0])translate([-19.00*1.875,0,0])keycap(keyID = 8, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//mirror([0,0,0])translate([19.00*4.625,0,0])keycap(keyID = 8, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//
-//translate([-19,0,0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([19,0,0])mirror([0,0,0])keycap(keyID = 5, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([19*.5,19,0])mirror([1,0,0])keycap(keyID = 6, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//for(i=[0:2]){translate([0,(i+1)*19,0])keycap(keyID = i, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//n translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
-// translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
-
-//for(i=[0:11]){translate([i*19-19*6,(3)*19,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//for(i=[0:8]){translate([i*19-19*4.75,(2)*19,0])keycap(keyID = 1, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//for(i=[0:8]){color("royalblue")translate([i*19-19*2.375,(1)*19,0])keycap(keyID = 0, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//for(i=[8:11]){translate([19,(i-8)*19,0])keycap(keyID = i, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//for(i=[12:15]){translate([25,(i-12)*19,0])keycap(keyID = i, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//for(i=[20:23]){translate([30,(i-20)*19,0])keycap(keyID = i, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-//for(i=[24:27]){translate([25,(i-24)*19,0])keycap(keyID = i, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = false, homeDot = false, Legends = false);}
-
-
+mirror([0,0,0])keycap(
+  keyID  = 1, //change profile refer to KeyParameters Struct
+  cutLen = 0, //Don't change. for chopped caps
+  Stem   = true, //tusn on shell and stems
+  Dish   = true, //turn on dish cut
+  Stab   = 0, 
+  visualizeDish = false, // turn on debug visual of Dish 
+  crossSection  = false, // center cut to check internal
+  homeDot = false, //turn on homedots
+  Legends = false
+ );
+ 
 //#translate([0,38,13])cube([18-5.7, 18-5.7,1],center = true);
-//echo(len(keyParameters));
 //Parameters
-wallthickness = 1.25; // 1.5 for norm, 1.25 for cast master
-topthickness  = 2.75;   // 3 for norm, 2.5 for cast master
-stepsize      = 50;  //resolution of Trajectory
-step          = 2;   //resolution of ellipes 
-fn            = 32;  //resolution of Rounded Rectangles: 60 for output
+wallthickness = 2.0; // 1.5 for norm, 1.25 for cast master
+topthickness  = 2.5;   // 3 for norm, 2.5 for cast master
+stepsize      = 40;  //resolution of Trajectory
+step          = 6;   //resolution of ellipes 
+fn            = 16;  //resolution of Rounded Rectangles: 60 for output
 layers        = 40;  //resolution of vertical Sweep: 50 for output
 dotRadius     = 0.55;   //home dot size
 //---Stem param
-slop    = 0.40;
+Tol    = 0.10;
 stemRot = 0;
-stemWid = 7.2;
-stemLen = 5.5;
+stemWid = 7.55;
+stemLen = 5.55 ;
 stemCrossHeight = 4;
 extra_vertical  = 0.6;
 StemBrimDep     = 0.25; 
@@ -60,46 +46,67 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
 //Column high sculpt 3 row system 
-    //0~3
-    [17.16,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4 8
+    //0~5
+     [17.16,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4 8
+//    [17.16,  17.16,   6.5, 	 6.5, 10.0,    0,    0,    15,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4 8
     [17.16,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
     [17.16,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
     [17.16,  17.16,   6.5, 	 6.5, 8.75,    0,    0,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 deepdish
+    [17.16,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 mod 
+    [17.16,  17.16,   6.5, 	 6.5, 15.0,    0,  -.5,    20,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R1 num
    
-    //1.25u 4~7
+    //1.25u 6~9
     [21.86,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
-    [21.86,  17.16,   6.5, 	 6.5,10.55,   .5,    0,     9,     3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
-    [21.86,  17.16,   6.5, 	 6.5, 8.75,  -.5,   .5,     4,    -3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [21.86,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4  // neuron 3 deg  
+    [21.86,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,    -0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
     [21.86,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
-    //1.5u 8~11
+    //1.5u 10~13
     [26.66,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
     [26.66,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
     [26.66,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
     [26.66,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
-    //1.75u 12~15
-    [31.06,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
-    [31.06,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,    -3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
-    [31.06,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
-    [31.06,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
-    //2.0u  16~19
-    [35.46,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
-    [35.46,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
-    [35.46,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
-    [35.46,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
-    //2.25u 20~23
-    [40.66,  17.16,   6.5, 	 6.5, 10.5,    0,    0,    -3,    -3,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
-    [35.46,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
-    [35.46,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
-    [35.46,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
-    //2.75u 24
-    [50.66,  17.16,   6.5, 	 6.5, 10.5,    0,    0,    -3,     2,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
-    [35.46,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
-    [35.46,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,    -4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
-    [35.46,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    //1.75u 14~17
+    [31.40,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    [31.40,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,    -0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [31.40,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [31.40,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    //2.0u  18~22
+    [36.26,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    [36.26,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [36.26,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [36.26,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    [36.26,  17.16,   6.5, 	 6.5,   15,    0,  -.5,    20,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R1
+    //2.25u 23~26
+    [40.96,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,    -0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    [40.96,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [40.96,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [40.96,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    //2.50u 27~30  
+    [45.66,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  // neuron 2deg height to 10.5 
+    [45.66,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [45.66,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [45.66,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    //2.75u 31~34
+    [50.66,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    [50.66,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [50.66,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,    -4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [50.66,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    //3.00u 34~37
+    [55.36,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,    -0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    [55.36,  17.16,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
+    [55.36,  17.16,   6.5, 	 6.5, 8.75,    0,   .5,     4,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
+    [55.36,  17.16,   6.5, 	 6.5, 9.75,    0,    0,   -13,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R2
+    //6.25u 39
+    [117.1,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,    -0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    //7.00u 40
+    [131.4,  17.16,   6.5, 	 6.5, 11.5,    0,    0,    -3,    -0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 
+    //num pad vert  2u 41
+    [17.16,  36.26,   6.5, 	 6.5,10.00,    0,    0,    -5,     0,     0,   2,   2,      1,      6,      1,    3.5,     2,       2], //R4
+    [17.16,  36.26,   6.5, 	 6.5,10.55,    0,    0,     9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R4
 
 ];
 
-dishParameters = //dishParameter[keyID][ParameterID]
+dishParameters = //dishParameter[keyID][ParameteID]
 [ 
 //FFwd1 FFwd2 FPit1 FPit2  DshDep DshHDif FArcIn FArcFn FArcEx     BFwd1 BFwd2 BPit1 BPit2  BArcIn BArcFn BArcEx
   // low pro 3 row system
@@ -107,28 +114,36 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [   5,  3.5,   10,  -55,      5,    1.8,   8.5,    15,     2,        5,  3.7,   10,  -55,    8.5,    15,     2], //R3
   [   6,    3,   10,  -50,      5,    1.8,   8.8,    15,     2,        6,    4,   13,   30,    8.8,    16,     2], //R2
   [ 4.8,  3.3,   18,  -55,      5,    2.0,   8.5,    15,     2,      4.8,  3.3,   18,  -55,    8.5,    15,     2], //R3 deep
+  [   6,    3,   -5,  -50,      5,    1.8,   8.8,    15,     2,        6,  3.5,   13,  -50,    8.8,    15,     2], //R5 mod 
+  [   6,    3,   13,   30,      5,    1.9,   8.9,    15,     2,        5,  4.4,   10,  -50,    8.9,    16,     2], //R1 
   //1.25
   [   6,    3,   -5,  -50,      5,    1.8,  12.4,    18,     2,        6,  3.5,   13,  -50,   12.4,    19,     2], //R5
-  [   6,    3,   18,  -50,      5,    1.8,  12.4,    20,     2,        5,  4.4,    5,  -55,   12.4,    19,     2], //R4
+  [   6,    3,   18,  -50,      5,    1.8,  12.4,    21,     2,        5,  4.4,    5,  -55,   12.4,    19,     2], //R4
   [   5,  3.5,   10,  -55,      5,    1.8,  12.4,    18,     2,        5,  3.7,   10,  -55,   12.4,    19,     2], //R3
   [   6,    3,   10,  -50,      5,    1.8,  12.4,    18,     2,        6,    4,    13,  30,   12.4,    19,     2], //R2
   //1.5
-  [   6,    3,   -5,  -50,      5,    1.8,  15.5,    22,     2,        6,  3.5,   13,  -50,   15.5,    22,     2], //R5
-  [   6,    3,   18,  -50,      5,    1.8,  15.5,  27.2,     2,        5,  4.4,    5,  -55,   15.5,    22,     2], //R4
+  [   6,    3,   -5,  -50,      5,    1.8,  15.6,    22,     2,        6,  3.5,   13,  -50,   15.6,    22,     2], //R5
+  [   6,    3,   18,  -50,      5,    1.8,  15.6,  27.2,     2,        5,  4.4,    5,  -55,   15.6,    22,     2], //R4
   [   5,  3.5,   10,  -55,      5,    1.8,  15.5,    22,     2,        5,  3.7,   10,  -55,   15.5,    22,     2], //R3
   [   6,    3,   10,  -50,      5,    1.8,  15.7,    22,     2,        6,    4,   13,   30,   15.7,    23,     2], //R2
   //1.75
-  [   6,    3,   -5,  -50,      5,    1.8,  18.7,    25,     2,        6,  3.5,   13,  -50,   18.7,    25,     2], //R5
+  [   6,    3,   -5,  -50,      5,    1.8,  18.7,    25,     2,        6,  3.5,   13,  -50,   18.7,    26,     2], //R5
   [   6,    3,   17,  -50,      5,    1.8,  18.7,    32,     2,        5,  4.4,    5,  -55,   18.7,    25,     2], //R4
-  [   5,  3.5,   10,  -55,      5,    1.8,  18.7,    27,     2,        5,  3.8,   10,  -55,   18.7,    25,     2], //R3
+  [   5,  3.5,   10,  -55,      5,    1.8,  18.7,    27,     2,        5,  3.8,   10,  -55,   18.7,    25,     2], //R3 
   [   6,    3,   10,  -50,      5,    1.8,  18.7,    25,     2,        6,    4,   13,   30,   18.7,    28,     2], //R2
   //2
-  [   6,    3,   -5,  -50,      5,    1.8,  21.9,    30,     2,        6,  3.5,   13,  -50,   21.9,    31,     2], //R5
-  [   6,    3,   15,  -50,      5,    1.8,  21.9,    34,     2,        5,  4.4,    5,  -55,   21.9,    31,     2], //R4
-  [   6,    3,   17,  -55,      5,    1.8,  21.9,  32.5,     2,        5,  3.7,    8,  -55,   21.9,    31,     2], //R3
-  [   6,    3,   10,  -50,      5,    1.8,  21.9,    30,     2,        5,    4, 11.5,  -55,   21.9,    33,     2], //R2
+  [   6,    3,   -5,  -50,      5,    1.8,  22.3,    30,     2,        6,  3.5,   13,  -50,   22.3,    31,     2], //R5
+  [   6,    3,   15,  -50,      5,    1.8,  22.3,    35,     2,        5,  4.4,    5,  -55,   22.3,    31,     2], //R4
+  [   6,    3,   17,  -55,      5,    1.8,  22.3,  32.5,     2,        5,  3.7,    8,  -55,   22.3,    31,     2], //R3
+  [   6,    3,   10,  -50,      5,    1.8,  22.3,    30,     2,        5,    4, 11.5,  -55,   22.3,    33,     2], //R2
+  [ 6.4,  3.2,   13,   30,      5,    1.9,  23.1,    38,     2,        5,  4.4,   10,  -50,   23.1,    34,     2], //R1
   //2.25
-  [   6,    3,   -5,  -50,      5,    1.8,  25.6,    30,     2,        6,  3.5,   13,  -50,   25.6,     40,     2], //R5
+  [   6,    3,   -5,  -50,      5,    1.8,  25.6,    30,     2,        6,  3.5,   13,  -50,   25.6,    40,     2], //R5
+  [   6,    3,   15,  -50,      5,    1.8,  25.6,    41,     2,        5,  4.4,    5,  -55,   25.6,    34,     2], //R4
+  [   6,    3,   17,  -55,      5,    1.8,  25.6,  32.5,     2,        5,  3.7,    8,  -55,   21.9,    31,     2], //R3
+  [   6,    3,   10,  -50,      5,    1.8,  21.9,    30,     2,        5,    4, 11.5,  -55,   21.9,    33,     2], //R2
+  //2.50
+  [   6,    3,   -5,  -50,      5,    1.8,  29.0,    40,     2,        6,  3.5,   13,  -50,   29.0,    43,     2], //R5
   [   6,    3,   15,  -50,      5,    1.8,  21.9,    34,     2,        5,  4.4,    5,  -55,   21.9,    31,     2], //R4
   [   6,    3,   17,  -55,      5,    1.8,  21.9,  32.5,     2,        5,  3.7,    8,  -55,   21.9,    31,     2], //R3
   [   6,    3,   10,  -50,      5,    1.8,  21.9,    30,     2,        5,    4, 11.5,  -55,   21.9,    33,     2], //R2
@@ -137,6 +152,19 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [   6,    3,   15,  -50,      5,    1.8,  21.9,    34,     2,        5,  4.4,    5,  -55,   21.9,    31,     2], //R4
   [   6,    3,   17,  -55,      5,    1.8,  21.9,  32.5,     2,        5,  3.7,    8,  -55,   21.9,    31,     2], //R3
   [   6,    3,   10,  -50,      5,    1.8,  21.9,    30,     2,        5,    4, 11.5,  -55,   21.9,    33,     2], //R2
+  //3
+  [   6,    3,   -5,  -50,      5,    1.8, 35.85,    46,     2,        6,  3.5,   13,  -50,  35.85,    55,     2], //R5
+  [   6,    3,   15,  -50,      5,    1.8,  21.9,    34,     2,        5,  4.4,    5,  -55,   21.9,    31,     2], //R4
+  [   6,    3,   17,  -55,      5,    1.8,  21.9,  32.5,     2,        5,  3.7,    8,  -55,   21.9,    31,     2], //R3
+  [   6,    3,   10,  -50,      5,    1.8,  21.9,    30,     2,        5,    4, 11.5,  -55,   21.9,    33,     2], //R2
+  //6.25u
+  [   6,    3,   -5,  -50,      5,    1.8,  79.1,    95,     2,        6,  3.5,   13,  -50,   79.1,    127,     2], //R5
+  //7.00u
+  [   6,    3,   -5,  -50,      5,    1.8,  89.7,   105,     2,        6,  3.5,   13,  -50,   89.7,    143,     2], //R5
+  //2.00u vert
+  [  13,  5.5,    5,  -30,      4,    1.8,   8.5,    12,   1.5,       10,    8,    7,  -10,    8.5,     12,   1.5], //R5
+  [   6,    3,   -5,  -50,      5,    1.8,  79.1,    95,     2,        6,  3.5,   13,  -50,   79.1,    127,     2], //R5
+
 
 ];
  
@@ -232,7 +260,7 @@ function CapRotation(t, keyID) =
 
 function CapTransform(t, keyID) = 
   [
-    pow(t/layers, WidExponent(keyID))*(BottomWidth(keyID) -TopWidthDiff(keyID)) + (1-pow(t/layers, WidExponent(keyID)))*BottomWidth(keyID) ,
+    pow(t/layers, WidExponent(keyID))*(BottomWidth(keyID) -TopWidthDiff(keyID)) + (1-pow(t/layers, WidExponent(keyID)))*BottomWidth(keyID),
     pow(t/layers, LenExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)) + (1-pow(t/layers, LenExponent(keyID)))*BottomLength(keyID)
   ];
 function CapRoundness(t, keyID) = 
@@ -299,11 +327,10 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
         }
       }
       if(Stem == true){
-        translate([0,0,StemBrimDep])cherry_stem(KeyHeight(keyID)-StemBrimDep, slop); // generate mx cherry stem, not compatible with box
-        if (Stab != 0){
-          translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
-          translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
-          //TODO add binding support?
+         translate([0,0,StemBrimDep])rotate(stemRot)difference(){   
+          cylinder(d =5.5,KeyHeight(keyID)-StemBrimDep, $fn= 32);
+          skin(StemCurve);
+          skin(StemCurve2);
         }
 //        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //Transition Support for taller profile
       }
@@ -314,7 +341,8 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
     
     //Fonts
     if(Legends ==  true){
-          #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-1,-5,KeyHeight(keyID)-2.5])linear_extrude(height = 1)text( text = "ver2", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
+//          #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])
+      translate([0,0,KeyHeight(keyID)-5])linear_extrude(height =5)text( text = "A", font = "Calibri:style=Bold", size = 4, valign = "center", halign = "center" );
       //  #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,-3.5,0])linear_extrude(height = 0.5)text( text = "Me", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       }
    //Dish Shape 
@@ -328,71 +356,54 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
      } 
    }
      if(crossSection == true) {
-       translate([0,-15,-.1])cube([15,30,15]); 
+       translate([0,-15,-.1])cube([15,30,20]); 
+//      translate([-15.1,-15,-.1])cube([15,30,20]); 
      }
-    if(homeDot == true)#translate([0,0,KeyHeight(keyID)-DishHeightDif(keyID)-0.1])sphere(r = dotRadius);
-   
+    if(homeDot == true){
+      // center dot
+      #translate([0,0,KeyHeight(keyID)-DishHeightDif(keyID)-0.1])sphere(r = dotRadius); // center dot
+      // double bar dots
+//      rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([.75,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+0.5])sphere(r = dotRadius); // center dot
+//      rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-.75,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+0.5])sphere(r = dotRadius); // center dot
+      //tri center dots
+//     #rotate([0,YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,0,KeyHeight(keyID)-DishHeightDif(keyID)-0.1]){
+//        rotate([0,0,0])translate([0,.75,0])sphere(r = dotRadius); // center dot
+//        rotate([0,0,120])translate([0,.75,0])sphere(r = dotRadius); // center dot
+//        rotate([0,0,240])translate([0,.75,0])sphere(r = dotRadius); // center dot
+//      }
+    }
   }
   //Homing dot
   
 }
-
 //------------------stems 
-$fn = fn;
 
-function outer_cherry_stem(slop) = [ stemWid - slop * 2, stemLen - slop * 2];
-function outer_cherry_stabilizer_stem(slop) = [4.85 - slop * 2, 6.05 - slop * 2];
-function outer_box_cherry_stem(slop) = [6 - slop, 6 - slop];
+MXWid = 4.03/2+Tol; //horizontal lenght
+MXLen = 4.23/2+Tol; //vertical length
 
-// .005 purely for aesthetics, to get rid of that ugly crosshatch
-function cherry_cross(slop, extra_vertical = 0) = [
-  // horizontal tine
-  [4.03 + slop, 1.15 + slop / 3],
-  // vertical tine
-  [1.25 + slop / 3, 4.23 + extra_vertical + slop / 3 + .005],
-];
-module inside_cherry_cross(slop) {
-  // inside cross
-  // translation purely for aesthetic purposes, to get rid of that awful lattice
-  translate([0,0,-0.005]) {
-    linear_extrude(height = stemCrossHeight) {
-      square(cherry_cross(slop, extra_vertical)[0], center=true);
-      square(cherry_cross(slop, extra_vertical)[1], center=true);
-    }
-  }
+MXWidT = 1.15/2+Tol; //horizontal thickness
+MXLenT = 1.25/2+Tol; //vertical thickness
 
-  // Guides to assist insertion and mitigate first layer squishing
-  {
-    for (i = cherry_cross(slop, extra_vertical)) hull() {
-      linear_extrude(height = 0.01, center = false) offset(delta = 0.4) square(i, center=true);
-      translate([0, 0, 0.5]) linear_extrude(height = 0.01, center = false)  square(i, center=true);
-    }
-  }
-}
+function stem_internal(sc=1) = sc*[
+[MXLenT, MXLen],[MXLenT, MXWidT],[MXWid, MXWidT],
+[MXWid, -MXWidT],[MXLenT, -MXWidT],[MXLenT, -MXLen],
+[-MXLenT, -MXLen],[-MXLenT, -MXWidT],[-MXWid, -MXWidT],
+[-MXWid,MXWidT],[-MXLenT, MXWidT],[-MXLenT, MXLen]
+];  //2D stem cross with tolance offset and additonal transformation via jog 
+//trajectory();
+function StemTrajectory() = 
+  [ trajectory(forward = 5.25) ];
+  
+  StemPath  = quantize_trajectories(StemTrajectory(),  steps = 1 , loop=false, start_position= $t*4);
+  StemCurve  = [ for(i=[0:len(StemPath)-1])  transform(StemPath[i],  stem_internal()) ];
 
-module cherry_stem(depth, slop) {
-  D1=.15;
-  D2=.05;
-  H1=3.5;
-  CrossDist = 1.75;
-  difference(){
-    // outside shape
-    linear_extrude(height = depth) {
-      offset(r=1){
-        square(outer_cherry_stem(slop) - [2,2], center=true);
-      }
-    }
-    rotate([0,0,stemRot])inside_cherry_cross(slop);
-    hull(){
-      translate([CrossDist,CrossDist-.1,0])cylinder(d1=D1, d2=D2, H1);
-      translate([-CrossDist,-CrossDist+.1,0])cylinder(d1=D1, d2=D2, H1);
-    }
-    hull(){
-      translate([-CrossDist,CrossDist-.1])cylinder(d1=D1, d2=D2, H1);
-      translate([CrossDist,-CrossDist+.1])cylinder(d1=D1, d2=D2, H1);
-    }
-  }
-}
+
+function StemTrajectory2() = 
+  [trajectory(forward = .5)];
+
+StemPath2  = quantize_trajectories(StemTrajectory2(),  steps = 10, loop=false, start_position= $t*4);
+StemCurve2  = [for(i=[0:len(StemPath2)-1])  transform(StemPath2[i]*scaling([(1.1-.1*i/(len(StemPath2)-1)),(1.1-.1*i/(len(StemPath2)-1)),1]), stem_internal())]; 
+
 
 module choc_stem() {
   
@@ -452,3 +463,12 @@ function sign_y(i,n) =
 	i > 0 && i < n/2  ?  1 :
 	i > n/2 ? -1 :
 	0;
+
+//#square([18.16, 18.16], center = true);
+//#square([41.3, 19.05], center = true);
+//scale(1.03)difference(){// assume 1% from infill and 2% for easy removal
+//translate([0,0,13/2+.1])cube([21,21,13], center = true);
+//
+// projection()
+// translate([0,28,0])rotate([0,-90,0]){
+//translate([0,0,0])mx_master_base(xu = 7, yu = 1 );  

@@ -1,103 +1,85 @@
-  use <scad-utils/morphology.scad> //for cheaper minwoski 
+use <scad-utils/morphology.scad> //for cheaper minwoski 
 use <scad-utils/transformations.scad>
 use <scad-utils/shapes.scad>
 use <scad-utils/trajectory.scad>
 use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
 use <skin.scad>  
+//use <z-butt.scad>
 
-/*DES (Distorted Elliptical Saddle) Sculpted Profile for 6x3 and corne thumb 
-Version 2: Eliptical Rectangle
+//NOTE: with sweep cuts, top surface may not be visible in review, it should be visible once rendered
 
-*/
-//#square([18.16, 18.16], center = true);
-
-//TODO add shift 
-mirror([0,0,0])keycap(keyID = 14, cutLen = 0, Stem =true,  Dish = true, Stab = 0 , visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
-
-//n translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
-// translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);
-RowHome = [0,2.5,5,2.5,0,0];
-
-//for(Col = [6:6]){ 
-//  for(Row = [1:3]){
-//  translate([19*Col, 19*Row +RowHome[Col], 0])keycap(keyID = Col*4+Row, cutLen = 0, Stem = false,  Dish = true, visualizeDish = false, crossSection = false,Legends = false);
-//  } 
-//}
-
-
-//#translate([0,38,13])cube([18-5.7, 18-5.7,1],center = true);
+mirror([0,0,0])keycap(
+  keyID  = 1, //change profile refer to KeyParameters Struct
+  cutLen = 0, //Don't change. for chopped caps
+  Stem   = true, //tusn on shell and stems
+  StemRot = 0,//change stem orientation by deg
+  Dish   = true, //turn on dish cut
+  Stab   = 0, 
+  visualizeDish = false, // turn on debug visual of Dish 
+  crossSection  = false, // center cut to check internal
+  homeDot = false, //turn on homedots
+  Legends = false
+); 
 
 //Parameters
-wallthickness = 1.25;   
-topthickness  = 3;   //
+wallthickness = 1.2;   
+topthickness  = 2;   //
 stepsize      = 50;  //resolution of Trajectory
 step          = 1;   //resolution of ellipes 
-fn            = 64;  //resolution of Rounded Rectangles: 60 for output
+fn            = 32;  //resolution of Rounded Rectangles: 60 for output
 layers        = 40;  //resolution of vertical Sweep: 50 for output
 dotRadius     = 1.25;   //home dot size
 //---Stem param
-slop    = 0.4;
-stemRot = 0;
-stemWid = 7.2;
-stemLen = 5.5;
-stemCrossHeight = 4;
+slop    = 0.25;
+stemWid = 8;
+stemLen = 6;
+stemCrossHeight = 1.8;
 extra_vertical  = 0.6;
-StemBrimDep     = 0.75; 
+StemBrimDep     = 0; 
 stemLayers      = 50; //resolution of stem to cap top transition
+driftAngle      = 0;
 
 keyParameters = //keyParameters[KeyID][ParameterID]
 [
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
-//normie hipro v1
-    [17.16,  17.16,   6.5, 	 6.5,   11,    0,    0,   -10,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5
-    [17.16*2,17.16,   6.5, 	 6.5,   11,    0,    0,   -10,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 2u
-    [17.16,  17.16,   6.5, 	 6.5,    9,    0,    0,     3,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R3 Home
-    [17.16*2,17.16,   6.5, 	 6.5,  8.6,    0,    0,    -8,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 2u low pro 3
-//normie hi-sculpt 4 row system  17~23
-    [17.16,  17.16,   6.5, 	 6.5, 11.0,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  4
-    [22.26,  17.16,   6.5, 	 6.5, 11.0,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 1.25u 
-    [26.66,  17.16,   6.5, 	 6.5, 11.0,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 1.5u 
-    [31.06,  17.16,   6.5, 	 6.5, 11.0,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 1.75u 
-    [35.56,  17.16,   6.5, 	 6.5, 11.0,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5 2.0u 8
+    //Column 0    
+    //Levee: Chicago in choc Dimension 
+    [17.20,  16.00,   5.6, 	   5,  3.8,    0,  -.5,     7,    -0,    -0,   2, 2,    .10,      3,     .10,      3,     2,       2], //Chicago Steno R2x 1u
+    [17.20,  16.00,   5.6, 	   5,  4.4,    0,   .0,     0,    -0,    -0,   2, 2,    .10,      3,     .10,      3,     2,       2], //Chicago Steno R3x 1u
+    [35.85,  15.65,     7, 	   7,  4.4,    0,   .0,     0,    -0,    -0,   2, 2,    .30,      5,     .30,      5,     2,       2], //Chicago Steno R3x 1.5u 
+    [35.85,  15.65,     7, 	   7,  4.4,    0,   .0,     0,    -0,    -0,   2, 2,    .30,      5,     .30,      5,     2,       2], //Chicago Steno R3x 2u 
+    //mods 3
     
-//normie  mild  4 row system 
-    [17.16,  17.16,    6.5, 	 6.5, 10.3,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  9
-    [22.26,  17.16,    6.5, 	 6.5, 10.3,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  10
-    [26.66,  17.16,    6.5, 	 6.5, 10.3,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  11
-    [31.06,  17.16,    6.5, 	 6.5, 10.3,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  12
-    [35.56,  17.16,    6.5, 	 6.5, 10.3,    0,    0,    -9,     0,     0,   2,   2,      1,      5,      1,    3.5,     2,       2], //R5  13 
-//nueron R5s
-    [17.96,  17.96,      8,      8, 13.0,    0,    0,   -11,     0,     0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R5  14
-    [26.66,  17.16,      8, 	   8, 13.0,    0,    0,   -11,     0,     0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R5 1.5u 
-    [40.66,  17.16,      8, 	   8, 13.0,    0,    0,   -11,     0,     0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R5 2.25u 
-    [49.86,  17.16,      8, 	   8, 13.0,    0,    0,   -11,     0,     0,   2,   2,     .1,  3.399,     .1,  3.399,     2,       2], //R5 2.75u
+    [17.20,  16.00,  4.25, 	3.25,  5.5,  -.7,  0.7,     0,    -4,    -0,   2,   2,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
+    [17.20,  16.00,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
+    //1.25 5
+    [21.3,   15.60,  5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.25u
+    [21.4,   15.60,  5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.25u
+    //1.5 7
+    [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
+    [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
+    //1.75 9
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
+    // Ergo shits
+    [18.75,  18.75,   5.6, 	   5,    8,    0,   .25,     0,    -0,    -0,   2, 2.5,    .10,      3,     .10,      3,     2,       2], //highpro 19.05 R2|4 
+    [17.20,  16.00,   5.6, 	   5,  4.7,    0,   .0,      3,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R2 ALT
+    [17.20,  16.00,   5.6, 	   5,  5.5,    0,   .0,      7,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R1 Steap
+    [17.20,  16.00,   5.6, 	   5,  7.0,    0,   .0,     10,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R1 mild with alt R2
 ];
 
 dishParameters = //dishParameter[keyID][ParameterID]
 [ 
 //FFwd1 FFwd2 FPit1 FPit2  DshDepi DishDepf,DshHDif FArcIn FArcFn FArcEx     BFwd1 BFwd2 BPit1 BPit2  BArcIn BArcFn BArcEx
-  [   3,    3,  -10,  -50,      3,      7,   8.2,     9,     2,        5,    3,    0,  -30,    8.2,     9,     2], //R5
-  [   3,    3,  -10,  -50,      3,      7,  18.2,    21,     2,        5,    3,    0,  -30,   18.2,    21,     2], //R4
-  [   3,    3,  -10,  -50,      3,      7,   8.8,     9,     2,        4,    3,   -5,  -30,    8.8,     9,     2],  //R3
-  [   3, 3.25,  -10,  -45,      2,    4.3,  18.2,    21,     2,        5,    3,  -10,  -30,   18.2,    21,     2], //R4
-//normie hi-sculpt 4 row system  17~23
-  [   4,    3,  -10,  -20,    1.5,      4,   8.2,     9,     2,        4,    3,  -10,  -30,    8.2,     9,     2], //R5
-  [   4,    3,  -10,  -20,    1.5,      4,  10.2,    11,     2,        4,    3,  -10,  -30,   10.2,    11,     2],//R5 1.25u
-  [   4,    3,  -10,  -20,    1.5,      4,  12.4,    13,     2,        4,    3,  -10,  -30,   12.4,    13,     2], //R5 1.5u
-  [   4,    3,  -10,  -20,    1.5,      4,  14.6,    15,     2,        4,    3,  -10,  -30,   14.6,    15,     2], //R5 1.75u
-  [   4,    3,  -10,  -20,    1.5,      4,  16.8,    17,     2,        4,    3,  -10,  -30,   16.8,    17,     2], //R5 2.0u
-//normie hi-sculpt 4 row system  17~23
-  [   4,    3,  -10,  -20,    1.5,      4,   8.2,     9,     2,        4,    3,  -10,  -30,    8.2,     9,     2], //R5
-  [   4,    3,  -10,  -20,    1.5,      4,  10.2,    11,     2,        4,    3,  -10,  -30,   10.2,    11,     2],//R5 1.25u
-  [   4,    3,  -10,  -20,    1.5,      4,  12.4,    13,     2,        4,    3,  -10,  -30,   12.4,    13,     2], //R5 1.5u
-  [   4,    3,  -10,  -20,    1.5,      4,  14.6,    15,     2,        4,    3,  -10,  -30,   14.6,    15,     2], //R5 1.75u
-  [   4,    3,  -10,  -20,    1.5,      4,  16.8,    17,     2,        4,    3,  -10,  -30,   16.8,    17,     2], //R5 2.0u
-//
-  [   4,    3,  -10,  -20,    1.5,      4,   7.2,   7.2,     2,        4,    3,  -10,  -30,    7.2,   7.2,     2], //R5
-  [   4,    3,  -10,  -20,    1.5,      4,  11.8,    12,     2,        4,    3,  -10,  -30,   11.8,    12,     2], //R5 1.5u
-  [   4,    3,  -10,  -20,    1.5,      4,  18.8,  18.8,     2,        4,    3,  -10,  -30,   18.8,  18.8,     2], //R5 2.25u
-  [   4,    3,  -10,  -20,    1.5,      4,  23.5,    24,     2,        4,    3,  -10,  -30,   23.5,    24,     2], //R5 2.75u
+  [   5,  2.3,    2,  -55,    1.5,   3.75,   8.5,    8.5,    2,       5,    3,    2,  -50,    8.5,    8.7 ,     2], //R2x 1u
+  [ 4.5,  3.3,   -3,  -45,    1.5,   3.75,   8.5,   8.7,     2,     4.5,  3.3,   -3,  -45,    8.5,   8.7,     2], //R3x 1u
+  [ 4.5,  3.2,   -5,  -45,    1.5,   3.75,  19.0,    18,     2,     4.5,  3.2,   -5,  -45,   19.0,    18,     2], //R3x 2u
+  [ 4.5,  3.2,   -5,  -45,    1.5,   3.75,  19.0,    18,     2,     4.5,  3.2,   -5,  -45,   19.0,    18,     2], //R3x 2u
+  [   4,  4.2,   -5,  -15,      1,      3,  18.2,    21,     2,       5,    3,   -5,  -15,   18.2,    21,     2], //R3 2u
+  [  4.,  1.5,    8,  -55,      3,      7,   9.0,     9,     2,       4,    3,    3,  -50,    9,     9,     2],  //R3
+  [  4.,  1.5,   -0,  -50,      3,      7,   9.0,     9,     2,       4,    3,    -10,  -50,    9,     9,     2],  //R3
+  [   5,  3.5,    8,  -50,      5,    1.8,   8.8,    15,     2,       6,    4,   13,   30,    8.8,    16,     2], //R1
 ];
  
 function FrontForward1(keyID) = dishParameters[keyID][0];  //
@@ -213,7 +195,7 @@ function StemTranslation(t, keyID) =
   [
     ((1-t)/stemLayers*TopWidShift(keyID)),   //X shift
     ((1-t)/stemLayers*TopLenShift(keyID)),   //Y shift
-    stemCrossHeight+.1+StemBrimDep + (t/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1 -StemBrimDep))    //Z shift
+     stemCrossHeight+.1 + (t/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1))   //Z shift
   ];
 
 function StemRotation(t, keyID) =
@@ -234,7 +216,7 @@ function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))
 
 
 ///----- KEY Builder Module
-module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false, Dish = true, Stem = false, homeDot = false, Stab = 0) {
+module keycap(keyID = 0, cutLen = 0, visualizeDish = false, csrossSection = false, Dish = true, Stem = false,StemRot = 0, homeDot = false, Stab = 0) {
   
   //Set Parameters for dish shape
   FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
@@ -244,8 +226,8 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
   function FrontDishArc(t) =  pow((t)/(len(FrontPath)),FrontArcExpo(keyID))*FrontFinArc(keyID) + (1-pow(t/(len(FrontPath)),FrontArcExpo(keyID)))*FrontInitArc(keyID); 
   function BackDishArc(t)  =  pow((t)/(len(FrontPath)),BackArcExpo(keyID))*BackFinArc(keyID) + (1-pow(t/(len(FrontPath)),BackArcExpo(keyID)))*BackInitArc(keyID); 
 
-  FrontCurve = [ for(i=[0:len(FrontPath)-1]) transform(FrontPath[i], DishShape(DishDepth(keyID), FrontDishArc(i), DishDepth(keyID)+2.5, d = 0)) ];  
-  BackCurve  = [ for(i=[0:len(BackPath)-1])  transform(BackPath[i],  DishShape(DishDepth(keyID),  BackDishArc(i), DishDepth(keyID)+2.5, d = 0)) ];
+  FrontCurve = [ for(i=[0:len(FrontPath)-1]) transform(FrontPath[i], DishShape(DishDepth(keyID), FrontDishArc(i), DishDepth(keyID)+1.5, d = 0)) ];  
+  BackCurve  = [ for(i=[0:len(BackPath)-1])  transform(BackPath[i],  DishShape(DishDepth(keyID),  BackDishArc(i), DishDepth(keyID)+1.5, d = 0)) ];
   
   //builds
   difference(){
@@ -259,13 +241,13 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
         }
       }
       if(Stem == true){
-        translate([0,0,StemBrimDep])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID)-StemBrimDep, slop); // generate mx cherry stem, not compatible with box
+        translate([0,0,StemBrimDep])rotate([0,0,StemRot])choc_stem();
         if (Stab != 0){
-          translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
-          translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
+//          translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
+//          translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
           //TODO add binding support?
         }
-        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //Transition Support for taller profile
+        rotate([0,0,StemRot])translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //Transition Support for taller profile
       }
     //cut for fonts and extra pattern for light?
     }
@@ -274,7 +256,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
     
     //Fonts
     if(Legends ==  true){
-          #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-0,0,KeyHeight(keyID)-2.0])linear_extrude(height = 1)text( text = "No U", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
+          #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-1,-5,KeyHeight(keyID)-2.5])linear_extrude(height = 1)text( text = "ver2", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       //  #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,-3.5,0])linear_extrude(height = 0.5)text( text = "Me", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       }
    //Dish Shape 
@@ -298,74 +280,30 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
 //------------------stems 
 $fn = fn;
 
-function outer_cherry_stem(slop) = [ stemWid - slop * 2, stemLen - slop * 2];
-function outer_cherry_stabilizer_stem(slop) = [4.85 - slop * 2, 6.05 - slop * 2];
-function outer_box_cherry_stem(slop) = [6 - slop, 6 - slop];
-
-// .005 purely for aesthetics, to get rid of that ugly crosshatch
-function cherry_cross(slop, extra_vertical = 0) = [
-  // horizontal tine
-  [4.03 + slop, 1.15 + slop / 3],
-  // vertical tine
-  [1.25 + slop / 3, 4.23 + extra_vertical + slop / 3 + .005],
-];
-module inside_cherry_cross(slop) {
-  // inside cross
-  // translation purely for aesthetic purposes, to get rid of that awful lattice
-  translate([0,0,-0.005]) {
-    linear_extrude(height = stemCrossHeight) {
-      square(cherry_cross(slop, extra_vertical)[0], center=true);
-      square(cherry_cross(slop, extra_vertical)[1], center=true);
-    }
-  }
-
-  // Guides to assist insertion and mitigate first layer squishing
-  {
-    for (i = cherry_cross(slop, extra_vertical)) hull() {
-      linear_extrude(height = 0.01, center = false) offset(delta = 0.4) square(i, center=true);
-      translate([0, 0, 0.5]) linear_extrude(height = 0.01, center = false)  square(i, center=true);
-    }
-  }
-}
-
-module cherry_stem(depth, slop) {
-  D1=.15;
-  D2=.05;
-  H1=3.5;
-  CrossDist = 1.75;
-  difference(){
-    // outside shape
-    linear_extrude(height = depth) {
-      offset(r=1){
-        square(outer_cherry_stem(slop) - [2,2], center=true);
+module choc_stem(draftAng = 5) {
+  stemHeight = 3.1;
+  dia = .15;
+  wids = 1.2/2;
+  lens = 2.9/2; 
+  module Stem() {
+    difference(){
+      translate([0,0,-stemHeight/2])linear_extrude(height = stemHeight)hull(){
+        translate([wids-dia,-3/2])circle(d=dia);
+        translate([-wids+dia,-3/2])circle(d=dia);
+        translate([wids-dia, 3/2])circle(d=dia);
+        translate([-wids+dia, 3/2])circle(d=dia);
       }
-    }
-    inside_cherry_cross(slop);
-    hull(){
-      translate([CrossDist,CrossDist-.1,0])cylinder(d1=D1, d2=D2, H1);
-      translate([-CrossDist,-CrossDist+.1,0])cylinder(d1=D1, d2=D2, H1);
-    }
-    hull(){
-      translate([-CrossDist,CrossDist-.1])cylinder(d1=D1, d2=D2, H1);
-      translate([CrossDist,-CrossDist+.1])cylinder(d1=D1, d2=D2, H1);
+
+    //cuts
+      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight, d2=7,3.5, center = true, $fn = 64);
+      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight,d2=7,3.5, center = true, $fn = 64);
     }
   }
+
+  translate([5.7/2,0,-stemHeight/2+2])Stem();
+  translate([-5.7/2,0,-stemHeight/2+2])Stem();
 }
 
-module choc_stem() {
-  
-    translate([5.7/2,0,-3.4/2+2])difference(){
-    cube([1.25,3, 3.4], center= true);
-    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
-    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
-  }
-  translate([-5.7/2,0,-3.4/2+2])difference(){
-    cube([1.25,3, 3.4], center= true);
-    translate([3.9,0,0])cylinder(d=7,3.4,center = true);
-    translate([-3.9,0,0])cylinder(d=7,3.4,center = true);
-  }
-  
-}
 /// ----- helper functions 
 function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [
 	for (index = [0:fn-1])
@@ -410,3 +348,27 @@ function sign_y(i,n) =
 	i > 0 && i < n/2  ?  1 :
 	i > n/2 ? -1 :
 	0;
+
+//lp_key = [
+////     "base_sx", 18.5,
+////     "base_sy", 18.5,
+//     "base_sx", 17.65,
+//     "base_sy", 16.5,
+//     "cavity_sx", 16.1,
+//     "cavity_sy", 14.9,
+//     "cavity_sz", 1.6,
+//     "cavity_ch_xy", 1.6,
+//     "indent_inset", 1.5
+//     ];
+//Choc Chord version Chicago Stenographer
+//#square([18.16, 18.16], center = true);
+//translate([0,19,0])keycap(keyID = 1, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = true, crossSection = false, homeDot = false, Legends = false);
+//translate([0,0,0])lp_master_base(xu = 2, yu = 1 );  
+//stem_cavity_negative(lp_key, x=1, y=1);
+//}
+//#translate([0,0,0])cube([14.5, 13.5, 10], center = true); // internal check
+//#translate([0,0,0])cube([17.5, 16.5, 10], center = true); // external check
+//translate([0,17,0])mirror([0,1,0])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//translate([18,0,0])mirror([0,0,0])keycap(keyID = 0, cutLen = 0, Stem =false,  Dish = true, Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
+//n translate([0,19, 0])keycap(keyID = 3, cutLen = 0, Stem =true,  Dish = true, visualizeDish = true, crossSection = true, homeDot = false, Legends = false);
+// translate([0,38, 0])mirror([0,1,0])keycap(keyID = 2, cutLen = 0, Stem =true,  Dish = true, visualizeDish = false, crossSection = true, homeDot = false, Legends = false);

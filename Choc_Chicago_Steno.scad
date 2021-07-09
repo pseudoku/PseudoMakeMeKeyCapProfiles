@@ -4,45 +4,31 @@ use <scad-utils/shapes.scad>
 use <scad-utils/trajectory.scad>
 use <scad-utils/trajectory_path.scad>
 use <sweep.scad>
-use <skin.scad>  
+use <skin.scad> 
+//use <z-butt.scad> 
 
-//DES (Distorted Elliptical Saddle) Choc Chord version Chicago Stenographer with sculpted gergo thumb cluter
+//Choc Chord version Chicago Stenographer
 
 /*Tester */
-
-translate([0, 17, 0])rotate([0,0,0])mirror([0,1,0])keycap(keyID = 6, cutLen = 0, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-translate([0, 0, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID = 1, cutLen = 0, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-translate([0, 34, 0])rotate([0,0,0])mirror([0,1,0])keycap(keyID = 7, cutLen = 0, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-translate([0, -17, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID = 0, cutLen = 0, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-
-//
-//translate([-3, 0, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID = 2, cutLen = 7, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([3, 0, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID =  3, cutLen = -7, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//translate([0, 18, 0])rotate([0,0,0])mirror([0,0,0])keycap(keyID =  4, cutLen = 0, Stem =true,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//
-//  translate([0,-17.5, 0])rotate([0,0,0])mirror([0,1,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false); 
-//  
-//  translate([18,-17.5, 0])rotate([0,0,180])mirror([0,0,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = false, Legends = false);
-//  translate([18, 0, 0])rotate([0,0,180])mirror([0,1,0])keycap(keyID = 1, cutLen = -ChocCut, Stem =true,  Dish = true, SecondaryDish = true ,Stab = 0 , visualizeDish = false, crossSection = false, homeDot = true, Legends = false);
-//  
-
-//#translate([0,17,0])cube([14.5, 13.5, 4], center = true); // internal check
-//#translate([0,0,5])cube([19.05, 19.05, 10], center = true); // internal check
-//#translate([0,0,0])cube([17.5, 16.5, 10], center = true); // internal check
-ChocCut = 0;
-
-thumbStem = true;
-thumbDish = true;
-thumbVis  = false;
-thumbSec  = false;
-
+keycap(
+  keyID  = 1, //change profile refer to KeyParameters Struct
+  cutLen = 0, //Don't change. for chopped caps
+  Stem   = true, //tusn on shell and stems
+  StemRot = 0, //change stem orientation by deg
+  Dish   = true, //turn on dish cut
+  Stab   = 0, 
+  visualizeDish = false, // turn on debug visual of Dish 
+  crossSection  = false, // center cut to check internal
+  homeDot = false, //turn on homedots
+  Legends = false
+  ); 
 
 //-Parameters
 wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
-step = 6;       //resolution of ellipes 
-fn = 16;          //resolution of Rounded Rectangles: 60 for output
+step = 2;       //resolution of ellipes 
+fn = 32;          //resolution of Rounded Rectangles: 60 for output
 layers = 40;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
@@ -65,18 +51,30 @@ keyParameters = //keyParameters[KeyID][ParameterID]
 //  BotWid, BotLen, TWDif, TLDif, keyh, WSft, LSft  XSkew, YSkew, ZSkew, WEx, LEx, CapR0i, CapR0f, CapR1i, CapR1f, CapREx, StemEx
     //Column 0    
     //Levee: Chicago in choc Dimension 
-    [17.20,  16.00,   5.6, 	   5,  5.0,    0,   .0,     5,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R2/R4
-    [17.20,  16.00,   5.6, 	   5,  4.6,    0,   .0,     0,    -0,    -0,   2, 2.5,    .10,      3,     .10,      3,     2,       2], //Chicago Steno R3 flat
+    [17.20,  16.00,   5.6, 	   5,  4.9,    0,   .0,     5,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R2/R4
+    [17.20,  16.00,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2, 2.5,    .10,      3,     .10,      3,     2,       2], //Chicago Steno R3 flat
+    [17.20,  16.00,  1.25, 	1.25,  4.5,    0,   .0,     0,    -0,    -0,   2, 2.5,    .10,     .5,     .10,     .5,     2,       2], //Chicago Steno R3 chord
+    //mods 3
     
     [17.20,  16.00,  4.25, 	3.25,  5.5,  -.7,  0.7,     0,    -4,    -0,   2,   2,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
     [17.20,  16.00,  4.25, 	3.25,  5.2,  -.8,  0.6,     0,    -4,    -0,   2,   3,    .10,      2,     .10,      2,     2,       2], //Levee Corner R2
-    
-    [16.80*1.25, 15.60, 5, 	   4,  4.5,    0,   .0,     0,    -0,    -0,   2,   3,    .75,      3,     .75,      3,     2,       2], //Chicago Steno R2/R4 1.25u
+    //1.25 5
+    [21.3,   15.60,  5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.25u
+    [21.4,   15.60,  5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.25u
+    //1.5 7
+    [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
+    [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
+    //1.75 9
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
+    //2.00 11
+    [35.70,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
+    // Ergo shits
     [18.75,  18.75,   5.6, 	   5,    8,    0,   .25,     0,    -0,    -0,   2, 2.5,    .10,      3,     .10,      3,     2,       2], //highpro 19.05 R2|4 
     [17.20,  16.00,   5.6, 	   5,  4.7,    0,   .0,      3,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R2 ALT
     [17.20,  16.00,   5.6, 	   5,  5.5,    0,   .0,      7,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R1 Steap
-    [17.20,  16.00,   5.6, 	   5,  7.0,    0,   .0,     10,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R1 mild with alt R2
-
+    [17.20,  16.00,   5.6, 	   5,  7.0,    0,   .0,     10,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2] //Chicago Steno R1 mild with alt R2
 ];
 
 dishParameters = //dishParameter[keyID][ParameterID]
@@ -85,33 +83,30 @@ dishParameters = //dishParameter[keyID][ParameterID]
   //Column 0
   [ 4.5,    4,    7,  -50,      7,    1.7,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R2/R4
   [ 4.5,    4,    5,  -40,      7,    1.7,   11,    15,     2,      4.5,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
+  [ 4.5,    4,    5,  -40,      7,    1.7,   11,    15,     2,      4.5,    4,    5,   -40,   11,    15,     2], //Chicago Steno R3 chord
   
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
   [   6,  3.5,    7,  -50,      5,    1.0,   16,    23,     2,        6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
+  //1.25
+  [ 4.5,    4,    7,  -40,      8,    1.8,   15,    20,     2,      4.5,    4,    2,   -35,   15,    20,     2], //Chicago Steno R2/R4
+  [ 4.5,    4,    5,  -40,      8,    1.8,   15,    20,     2,      4.5,    4,    5,   -40,   15,    20,     2], //Chicago Steno R3
+  //1.5
+  [ 4.5,    4,    7,  -40,      8,    1.8,   19,    25,     2,      4.5,    4,    2,   -35,   19,    25,     2], //Chicago Steno R2/R4
+  [ 4.5,    4,    5,  -40,      8,    1.8,   19,    25,     2,      4.5,    4,    5,   -40,   19,    25,     2], //Chicago Steno R3
+  //1.75
+  [ 4.5,    4,    7,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    2,   -35,   22.5,  27,     2], //Chicago Steno R2/R4
+  [ 4.5,    4,    5,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    5,   -40,   22.5,  27,     2], //Chicago Steno R3
+  //2.00
+  [ 4.5,    4,    7,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    2,   -35,   22.5,  27,     2], //Chicago Steno R2/R4
+  [ 4.5,    4,    5,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    5,   -40,   22.5,  27,     2], //Chicago Steno R3
   
-  [ 4.5,    4,    5,  -40,      8,    1.8,   15,    16,     2,      4.5,    4,    5,   -40,   15,    16,     2], //Chicago Steno R2/R4
   [   5,    5,    5,  -40,      7,    1.7,   11,    15,     2,        5,    5,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
   [ 4.5,    4,    7,  -50,      7,    1.7,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R1
   [ 4.5,    4,    7,  -50,      7,    1.7,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R1
-  [ 4.5,    4,    7,  -50,      7,    1.7,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2], //Chicago Steno R1
-
+  [ 4.5,    4,    7,  -50,      7,    1.7,   11,    17,     2,      4.5,    4,    2,   -35,   11,    15,     2] //Chicago Steno R1
 ];
 
-SecondaryDishParam = 
-[  
-  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Chicago Steno R2/R4
-  [   6,  3.5,    7,  -50,      3,  2.5,    8,    20,     3,          2,  4.2,    8,     0,    8,    8,     3], //Chicago Steno R3 flat
-  
-  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Levee Steno R2/R4
-  [   6,  3.5,    7,  -50,      5,  1.0,   16,    23,     2,          6,  3.5,    7,   -50,   16,    23,     2], //Levee Steno R2/R4
-  
-  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Chicago Steno R2/R4
-  [   6,  3.5,    7,  -50,      3,  2.5,    8,    20,     3,          1,    8,    6,     0,    8,    8,     3], //Chicago Steno R3 flat
-  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Chicago Steno R1
-  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Chicago Steno R1
-  [   6,  3.5,    7,  -50,      3,    2,    8,     8,     2,          5,    5,    5,    15,   10,    20,     2], //Chicago Steno R1
 
-];
 function BottomWidth(keyID)  = keyParameters[keyID][0];  //
 function BottomLength(keyID) = keyParameters[keyID][1];  // 
 function TopWidthDiff(keyID) = keyParameters[keyID][2];  //
@@ -148,24 +143,6 @@ function BackInitArc(keyID)   = dishParameters[keyID][13];
 function BackFinArc(keyID)    = dishParameters[keyID][14];
 function BackArcExpo(keyID)   = dishParameters[keyID][15];
 
-function SFrontForward1(keyID) = SecondaryDishParam[keyID][0];  //
-function SFrontForward2(keyID) = SecondaryDishParam[keyID][1];  // 
-function SFrontPitch1(keyID)   = SecondaryDishParam[keyID][2];  //
-function SFrontPitch2(keyID)   = SecondaryDishParam[keyID][3];  //
-function SDishDepth(keyID)     = SecondaryDishParam[keyID][4];  //
-function SDishHeightDif(keyID) = SecondaryDishParam[keyID][5];  //
-function SFrontInitArc(keyID)  = SecondaryDishParam[keyID][6];
-function SFrontFinArc(keyID)   = SecondaryDishParam[keyID][7];
-function SFrontArcExpo(keyID)  = SecondaryDishParam[keyID][8];
-function SBackForward1(keyID)  = SecondaryDishParam[keyID][9];  //
-function SBackForward2(keyID)  = SecondaryDishParam[keyID][10];  // 
-function SBackPitch1(keyID)    = SecondaryDishParam[keyID][11];  //
-function SBackPitch2(keyID)    = SecondaryDishParam[keyID][12];  //
-function SBackInitArc(keyID)   = SecondaryDishParam[keyID][13];
-function SBackFinArc(keyID)    = SecondaryDishParam[keyID][14];
-function SBackArcExpo(keyID)   = SecondaryDishParam[keyID][15];
-
-
 function FrontTrajectory(keyID) = 
   [
     trajectory(forward = FrontForward1(keyID), pitch =  FrontPitch1(keyID)), //more param available: yaw, roll, scale
@@ -174,23 +151,10 @@ function FrontTrajectory(keyID) =
 
 function BackTrajectory (keyID) = 
   [
-    trajectory(forward = BackForward1(keyID), pitch =  BackPitch1(keyID)),
-    trajectory(forward = BackForward2(keyID), pitch =  BackPitch2(keyID)),
+    trajectory(backward = BackForward1(keyID), pitch =  -BackPitch1(keyID)),
+    trajectory(backward = BackForward2(keyID), pitch =  -BackPitch2(keyID))
   ];
 
-function SFrontTrajectory(keyID) = 
-  [
-    trajectory(forward = SFrontForward1(keyID), pitch =  SFrontPitch1(keyID)), //more param available: yaw, roll, scale
-    trajectory(forward = SFrontForward2(keyID), pitch =  SFrontPitch2(keyID)),  //You can add more traj if you wish 
-  ];
-
-function SBackTrajectory (keyID) = 
-  [
-    trajectory(forward = SBackForward1(keyID), pitch =  SBackPitch1(keyID)),
-    trajectory(forward = SBackForward2(keyID), pitch =  SBackPitch2(keyID)),
-    trajectory(forward = 4, pitch =  -15),
-    trajectory(forward = 6, pitch =  -5),
-  ];
 //------- function defining Dish Shapes
 
 function ellipse(a, b, d = 0, rot1 = 0, rot2 = 360) = [for (t = [rot1:step:rot2]) [a*cos(t)+a, b*sin(t)*(1+d*cos(t))]]; //Centered at a apex to avoid inverted face
@@ -202,6 +166,17 @@ function DishShape (a,b,c,d) =
 //   [[c+a,-b]]
   );
 
+function DishShape2 (a,b, phi = 200, theta, r) = 
+  concat(
+//   [[c+a,b]],
+    ellipse(a, b, d = 0,rot1 = 90, rot2 = phi),
+    [for (t = [-atan(-b*cos(phi)/a*sin(phi))+step:step:90])
+      [r*sin(t)+a*cos(phi)+r*sin(atan(b*cos(phi)/-a*sin(phi)))+a, r*cos(t)+b*sin(phi)-r*cos(atan(b*cos(phi)/-a*sin(phi)))]],
+
+
+    [[a,b*sin(270)+r*sin(theta)]] //bounday vertex to clear ends 
+  );
+
 function oval_path(theta, phi, a, b, c, deform = 0) = [
  a*cos(theta)*cos(phi), //x
  c*sin(theta)*(1+deform*cos(theta)) , // 
@@ -209,7 +184,6 @@ function oval_path(theta, phi, a, b, c, deform = 0) = [
 ]; 
   
 path_trans2 = [for (t=[0:step:180])   translation(oval_path(t,0,10,15,2,0))*rotation([0,90,0])];
-
 
 //--------------Function definng Cap 
 function CapTranslation(t, keyID) = 
@@ -277,28 +251,19 @@ function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))
 
 
 ///----- KEY Builder Module
-module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false, Dish = true, SecondaryDish = false, Stem = false, homeDot = false, Stab = 0, Legends = false) {
+module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false, Dish = true, Stem = false, StemRot = 0, homeDot = false, Stab = 0, Legends = false) {
   
   //Set Parameters for dish shape
-  FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
-  BackPath  = quantize_trajectories(BackTrajectory(keyID),  steps = stepsize, loop=false, start_position= $t*4);
+  FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false);
+  BackPath  = quantize_trajectories(BackTrajectory(keyID),  steps = stepsize, loop=false);
   
   //Scaling initial and final dim tranformation by exponents
   function FrontDishArc(t) =  pow((t)/(len(FrontPath)),FrontArcExpo(keyID))*FrontFinArc(keyID) + (1-pow(t/(len(FrontPath)),FrontArcExpo(keyID)))*FrontInitArc(keyID); 
   function BackDishArc(t)  =  pow((t)/(len(FrontPath)),BackArcExpo(keyID))*BackFinArc(keyID) + (1-pow(t/(len(FrontPath)),BackArcExpo(keyID)))*BackInitArc(keyID); 
-
+  
   FrontCurve = [ for(i=[0:len(FrontPath)-1]) transform(FrontPath[i], DishShape(DishDepth(keyID), FrontDishArc(i), 1, d = 0)) ];  
   BackCurve  = [ for(i=[0:len(BackPath)-1])  transform(BackPath[i],  DishShape(DishDepth(keyID),  BackDishArc(i), 1, d = 0)) ];
-  
-  //Secondary Dish
-  SFrontPath = quantize_trajectories(SFrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
-  SBackPath  = quantize_trajectories(SBackTrajectory(keyID),  steps = stepsize, loop=false, start_position= $t*4);
-  
-  function SFrontDishArc(t) =  pow((t)/(len(SFrontPath)),SFrontArcExpo(keyID))*SFrontFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SFrontArcExpo(keyID)))*SFrontInitArc(keyID); 
-  function SBackDishArc(t)  =  pow((t)/(len(SBackPath)),SBackArcExpo(keyID))*SBackFinArc(keyID) + (1-pow(t/(len(SFrontPath)),SBackArcExpo(keyID)))*SBackInitArc(keyID);
-  
-  SFrontCurve = [ for(i=[0:len(SFrontPath)-1]) transform(SFrontPath[i], DishShape(SDishDepth(keyID), SFrontDishArc(i), 1, d = 0)) ];  
-  SBackCurve  = [ for(i=[0:len(SBackPath)-1])  transform(SBackPath[i],  DishShape(SDishDepth(keyID),  SBackDishArc(i), 1, d = 0)) ];
+
   //builds
   difference(){
     union(){
@@ -311,20 +276,17 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
         }
       }
       if(Stem == true){
-        rotate([0,0,stemRot])choc_stem(draftAng = draftAngle); // generate mx cherry stem, not compatible with box
-        if (Stab != 0){
-          translate([Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
-          translate([-Stab/2,0,0])rotate([0,0,stemRot])cherry_stem(KeyHeight(keyID), slop);
+        rotate([0,0,StemRot]){
+          choc_stem(draftAng = draftAngle); 
+          if (Stab != 0){
+            // no need for stab
+          }
+          translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //outer shell
         }
-        translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID))*rotation(StemRotation(i, keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=StemRadius(i, keyID)))]); //outer shell
-          
-        
       }
-    //cut for fonts and extra pattern for light?
     }
     
     //Cuts
-    
     //Fonts
     if(cutLen != 0){
       translate([sign(cutLen)*(BottomLength(keyID)+CapRound0i(keyID)+abs(cutLen))/2,0,0])
@@ -332,25 +294,15 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
     }
     if(Legends ==  true){
       #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([-1,-5,KeyHeight(keyID)-2.5])linear_extrude(height = 1)text( text = "ver2", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
-      //  #rotate([-XAngleSkew(keyID),YAngleSkew(keyID),ZAngleSkew(keyID)])translate([0,-3.5,0])linear_extrude(height = 0.5)text( text = "Me", font = "Constantia:style=Bold", size = 3, valign = "center", halign = "center" );
       }
    //Dish Shape 
     if(Dish == true){
      if(visualizeDish == false){
       translate([-TopWidShift(keyID),.0001-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
-      translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(BackCurve);
+      translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(BackCurve);
      } else {
       #translate([-TopWidShift(keyID),.0001-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)]) rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(FrontCurve);
-      #translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(BackCurve);
-     }
-     if(SecondaryDish == true){
-       translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(SBackCurve);
-       mirror([1,0,0])translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(SBackCurve);
-//       translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(SFrontCurve);
-//       
-//       rotate([0,0,180])translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90-XAngleSkew(keyID),270-ZAngleSkew(keyID)])skin(SBackCurve);
-       
-//       rotate([0,0,180])translate([BottomWidth(keyID)/2,-BottomLength(keyID)/2,KeyHeight(keyID)-SDishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(SFrontCurve);
+      #translate([-TopWidShift(keyID),-TopLenShift(keyID),KeyHeight(keyID)-DishHeightDif(keyID)])rotate([0,-YAngleSkew(keyID),0])rotate([0,-90+XAngleSkew(keyID),90-ZAngleSkew(keyID)])skin(BackCurve);
      }
    }
      if(crossSection == true) {
@@ -358,74 +310,38 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
      }
   }
   //Homing dot
-  if(homeDot == true)translate([0,0,KeyHeight(keyID)-DishHeightDif(keyID)-.25])sphere(d = 1);
+  if(homeDot == true){
+    translate([2,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+.15])sphere(d = 1);
+    translate([-2,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+.15])sphere(d = 1);
+  }
 }
 
 //------------------stems 
 $fn = fn;
 
-function outer_cherry_stem(slop) = [ stemWid - slop * 2, stemLen - slop * 2];
-function outer_cherry_stabilizer_stem(slop) = [4.85 - slop * 2, 6.05 - slop * 2];
-function outer_box_cherry_stem(slop) = [6 - slop, 6 - slop];
-
-// .005 purely for aesthetics, to get rid of that ugly crosshatch
-function cherry_cross(slop, extra_vertical = 0) = [
-  // horizontal tine
-  [4.03 + slop, 1.15 + slop / 3],
-  // vertical tine
-  [1.25 + slop / 3, 4.23 + extra_vertical + slop / 3 + .005],
-];
-module inside_cherry_cross(slop) {
-  // inside cross
-  // translation purely for aesthetic purposes, to get rid of that awful lattice
-  translate([0,0,-0.005]) {
-    linear_extrude(height = stemCrossHeight) {
-      square(cherry_cross(slop, extra_vertical)[0], center=true);
-      square(cherry_cross(slop, extra_vertical)[1], center=true);
-    }
-  }
-
-  // Guides to assist insertion and mitigate first layer squishing
-  {
-    for (i = cherry_cross(slop, extra_vertical)) hull() {
-      linear_extrude(height = 0.01, center = false) offset(delta = 0.4) square(i, center=true);
-      translate([0, 0, 0.5]) linear_extrude(height = 0.01, center = false)  square(i, center=true);
-    }
-  }
-}
-
-module cherry_stem(depth, slop) {
-  difference(){
-    // outside shape
-    linear_extrude(height = depth) {
-      offset(r=1){
-        square(outer_cherry_stem(slop) - [2,2], center=true);
-      }
-    }
-    inside_cherry_cross(slop);
-  }
-}
-
-
-module choc_stem(draftAng = 2) {
-  stemHeinght = 3.1;
-  
+module choc_stem(draftAng = 5) {
+  stemHeight = 3.1;
+  dia = .15;
+  wids = 1.2/2;
+  lens = 2.9/2; 
   module Stem() {
     difference(){
-      hull(){
-        translate([0,0,-stemHeinght/2])cube([1.25-sin(draftAng)*stemHeinght,3-sin(draftAng)*stemHeinght,.001], center= true);
-        translate([0,0,stemHeinght/2])cube([1.25,3,.001], center= true);
+      translate([0,0,-stemHeight/2])linear_extrude(height = stemHeight)hull(){
+        translate([wids-dia,-3/2])circle(d=dia);
+        translate([-wids+dia,-3/2])circle(d=dia);
+        translate([wids-dia, 3/2])circle(d=dia);
+        translate([-wids+dia, 3/2])circle(d=dia);
       }
-      //cuts
-      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeinght, d2=7,3.5, center = true);
-      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeinght,d2=7,3.5, center = true);
+
+    //cuts
+      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight, d2=7,3.5, center = true, $fn = 64);
+      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight,d2=7,3.5, center = true, $fn = 64);
     }
   }
 
-  translate([5.7/2,0,-stemHeinght/2+2])Stem();
-  translate([-5.7/2,0,-stemHeinght/2+2])Stem();
+  translate([5.7/2,0,-stemHeight/2+2])Stem();
+  translate([-5.7/2,0,-stemHeight/2+2])Stem();
 }
-
 /// ----- helper functions 
 function rounded_rectangle_profile(size=[1,1],r=1,fn=32) = [
 	for (index = [0:fn-1])
@@ -470,3 +386,21 @@ function sign_y(i,n) =
 	i > 0 && i < n/2  ?  1 :
 	i > n/2 ? -1 :
 	0;
+    
+//lp_production_base();
+//for(i = [0:3-1]){
+//        for(j = [0:2-1]){
+//            translate([(1-i)*21, (.5-j)*21,0]){
+//            keycap(keyID = 1, cutLen = 0, Stem =false,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish =false , crossSection = false, homeDot = true, Legends = false);
+////              import("R3X.stl");
+//          }
+//        } 
+//      }
+//for(i = [0:1-1]){
+//        for(j = [0:2-1]){
+//            translate([(1-i)*21, (.5-j)*21,0]){
+//            keycap(keyID = 1, cutLen = 0, Stem =false,  Dish = true, SecondaryDish = false ,Stab = 0 , visualizeDish =false , crossSection = false, homeDot = true, Legends = false);
+//          }
+//        } 
+//      }
+//translate([(1-0)*21, (.5-0)*21,0])
