@@ -367,7 +367,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
             translate([Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
             translate([-Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
           }
-          translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
+          translate([0,0,-.001])rotate([0,0,StemRot])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
        }
         
      }
