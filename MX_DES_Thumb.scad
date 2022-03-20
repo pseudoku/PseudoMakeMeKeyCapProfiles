@@ -288,12 +288,14 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, rossSection = false,
   difference(){
     union(){
       difference(){
-        skin([for (i=[0:layers-1]) transform(translation(CapTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(CapTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]); //outer shell
+        skin([for (i=[-1:layers-1]) transform(translation(CapTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(CapTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]); //outer shell
         
         //Cut inner shell
         if(Stem == true){ 
-          translate([0,0,-.001])skin([for (i=[0:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(InnerTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]);
+          translate([0,0,-.001])skin([for (i=[-1:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(InnerTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]);
         }
+        // Cut off the extra bottom due to starting at layer -1
+        translate ([-50,-50,-10]) cube ([100,100,10], center=false);
       }
       if(Stem == true){
         translate([0,0,StemBrimDep])rotate(stemRot)difference(){   
