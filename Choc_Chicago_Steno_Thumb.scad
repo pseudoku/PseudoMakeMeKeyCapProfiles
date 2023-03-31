@@ -462,15 +462,16 @@ module cherry_stem(depth, slop) {
 module choc_stem(draftAng = 5) {
   stemHeight = 3.1;
   dia = .15;
-  wids = 1.2/2;
+  rad = dia/2;
+  wids = 1.1/2;
   lens = 2.9/2; 
   module Stem() {
     difference(){
       translate([0,0,-stemHeight/2])linear_extrude(height = stemHeight)hull(){
-        translate([wids-dia,-3/2])circle(d=dia);
-        translate([-wids+dia,-3/2])circle(d=dia);
-        translate([wids-dia, 3/2])circle(d=dia);
-        translate([-wids+dia, 3/2])circle(d=dia);
+        translate([wids-rad,-lens+rad])circle(d=dia);
+        translate([-wids+rad,-lens+rad])circle(d=dia);
+        translate([wids-rad, lens-rad])circle(d=dia);
+        translate([-wids+rad, lens-rad])circle(d=dia);
       }
 
     //cuts
